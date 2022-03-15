@@ -45,7 +45,7 @@ namespace theMaze
 
 
             //setup de valeur importante
-            sizeCellule = 2;
+            sizeCellule = 5;
             groudSize = transform.localScale;
 
             //Initialisation de la matrice rempli
