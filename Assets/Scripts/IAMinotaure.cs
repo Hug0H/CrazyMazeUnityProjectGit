@@ -8,7 +8,7 @@ public class IAMinotaure : MonoBehaviour
     public MazeGen maze;
     public int[,] DIST;
     public int[,] matrice;
-    public int [] position;
+    public int[] position;
     public Player players = new Player();
 
     int tailleX;
@@ -22,7 +22,7 @@ public class IAMinotaure : MonoBehaviour
         maze.Start();
 
         matrice = maze.matrice;
-        AffichageMatrice(matrice);
+        
 
         // AffichageMatrice(maze.matrice);
 
@@ -30,24 +30,26 @@ public class IAMinotaure : MonoBehaviour
 
         //DIST = new int[matrice.GetLength(0), matrice.GetLength(1)];
         //DIST = new int[100, 100];
-        DIST = (int[,]) matrice.Clone();
+        DIST = (int[,])matrice.Clone();
         //System.Array.Copy(maze.matrice, DIST, 5000);
         //matrice = maze.GenLab();
         //System.Array.Copy(maze.GenLab(),matrice, maze.GenLab().Length);
         //AffichageMatrice(DIST);
 
-        tailleX = DIST.GetLength(0);
-        tailleY = DIST.GetLength(1);
+        tailleX = DIST.GetLength(1);//Renvoie le nombre de colonne
+        tailleY = DIST.GetLength(0);//Renvoie le nombre de ligne
 
         //Poisition de départ du minautore.
-        position = new int [2];
+        position = new int[2];
         position[0] = 1;
         position[1] = 1;
+        
     }
 
     //Initialisation de la carte des distances
     int[,] PreInitDistPlayer()
     {
+        //AffichageMatrice(matrice);
         for (int x = 0; x < tailleX; x++)
         {
             for (int y = 0; y < tailleY; y++)
@@ -74,11 +76,11 @@ public class IAMinotaure : MonoBehaviour
                 {
                     continue;
                 }
-                else if(DIST[x, y] == 999)
+                else if (DIST[x, y] == 999)
                 {
                     continue;
                 }
-                else if (x == xp && y==yp)
+                else if (x == xp && y == yp)
                 {
                     DIST[x, y] = 0;
                 }
@@ -94,9 +96,9 @@ public class IAMinotaure : MonoBehaviour
     int[,] UpdateDistPlayer()
     {
         print("coucou");
-        for (int x = 1; x < tailleX-1; x++)
+        for (int x = 1; x < tailleX - 1; x++)
         {
-            for (int y = 1; y < tailleY-1; y++)
+            for (int y = 1; y < tailleY - 1; y++)
             {
                 print("coucou1");
                 if (DIST[x, y] == 999)
@@ -106,8 +108,8 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else
                 {
-                    int valeurMin = Minimum(new int[4] { DIST[position[0] + 1, position[1]], DIST[position[0], position[1] + 1], DIST[position[0] - 1, position[1]], DIST[position[0], position[1] - 1] });
-                    print("valeurMin : " + valeurMin);
+                    int valeurMin = Minimum(new int[4] { DIST[x+1,y], DIST[x,y+1], DIST[x-1,y], DIST[x,y-1] });
+                    //print("valeurMin : " + valeurMin);
                     if (DIST[x, y] > valeurMin)
                     {
                         DIST[x, y] = valeurMin + 1;
@@ -124,39 +126,45 @@ public class IAMinotaure : MonoBehaviour
     {
         InitDistPlayer(xp, yp);
         // Parcours de calcules des distances
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 30; i++)
         {
             UpdateDistPlayer();
         }
         return DIST;
     }
 
-    string [] MinautorePossibleMove()
+    string[] MinautorePossibleMove()
     {
-        string [] choixPossibles = new string [4];
+        string[] choixPossibles = new string[4];
         compteur = 0;
-        int valeurMin = Minimum(new int [4] {DIST[position[0] + 1, position[1]],DIST[position[0], position[1] + 1], DIST[position[0] - 1, position[1]], DIST[position[0], position[1] - 1]});
-        //print("ValeurMin : " + valeurMin);
-        if (DIST[position[0], position[1] - 1] == valeurMin)
+        int valeurMin = Minimum(new int[4] { DIST[position[1] + 1, position[0]], DIST[position[1], position[0] + 1], DIST[position[1] - 1, position[0]], DIST[position[1], position[0] - 1] });
+        print("ValeurMin : " + valeurMin);
+        if (DIST[position[1] - 1, position[0]] == valeurMin)
         {
-            choixPossibles[compteur]="haut";
+            choixPossibles[compteur] = "haut";
             compteur += 1;
         }
-        if (DIST[position[0], position[1] + 1] == valeurMin)
+        if (DIST[position[1] + 1, position[0]] == valeurMin)
         {
             choixPossibles[compteur] = "bas";
-            compteur += 1;
+            compteur += 1; 
         }
-        if (DIST[position[0] + 1, position[1]] == valeurMin)
+        if (DIST[position[1], position[0] + 1] == valeurMin)
         {
             choixPossibles[compteur] = "droite";
             compteur += 1;
         }
-        if (DIST[position[0] - 1, position[1]] == valeurMin)
+        if (DIST[position[1], position[0]-1] == valeurMin)
         {
             choixPossibles[compteur] = "gauche";
             compteur += 1;
         }
+        print("choixPossibles :");
+        for (int i=0; i < choixPossibles.Length; i++)
+        {
+            print("choixPossibles" +"["+i+"] = " + choixPossibles[i]);
+        }
+        
         return choixPossibles;
     }
     void IA()
@@ -165,51 +173,58 @@ public class IAMinotaure : MonoBehaviour
         DIST = CalculDistPlayer((int)players.position.x, (int)players.position.y);
 
         //deplacement Minautore
-        string [] choixPossibles = MinautorePossibleMove();
+        string[] choixPossibles = MinautorePossibleMove();
         int choix = Random.Range(0, compteur);
         string result = choixPossibles[choix];
+        print(result);
         if (result == "droite")
         {
             position[0] += 1;
+            position[1] += 0;
         }
         else if (result == "gauche")
         {
             position[0] -= 1;
+            position[1] -= 0;
         }
         else if (result == "haut")
         {
+            position[0] += 0;
             position[1] -= 1;
         }
         else if (result == "bas")
         {
+            position[0] += 0;
             position[1] += 1;
         }
-        print("PositionXMinautore : " + position[0] + "  /  PositionYMinautore : " + position[1]);
+        AffichageMatrice(DIST);
+        print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
 
-        if (position[0] == players.position.x && players.position.y == position[1])
+        if (position[1] == players.position.x && players.position.y == position[0])
         {
             print("collision");
             //Application.Quit();
         }
     }
-   
+
 
     // Update is called once per frame
     void Update()
     {
-       
+        print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
         IA();
-        AffichageMatrice(DIST);
+        
     }
 
 
     //Fonctions utilitaires à déplacer dans un fichier utilitaire
-    int Minimum(int [] tab)
+    int Minimum(int[] tab)
     {
-        int mimimum=999;
-        for(int i=0; i< tab.Length; i++)
+        int mimimum = 999;
+        for (int i = 0; i < tab.Length; i++)
         {
+            print("Tab[" + i + "] = " + tab[i]);
             if (mimimum > tab[i])
             {
                 mimimum = tab[i];
@@ -222,18 +237,18 @@ public class IAMinotaure : MonoBehaviour
     {
         string s = "";
         int row = mat.GetLength(0);
-        print(row);
+        //print(row);
         int col = mat.GetLength(1);
-        print(col);
+        //print(col);
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
             {
-                if (i == position[0] && j == position[1])
+                if (i == position[1] && j == position[0])
                 {
                     s += " X ";
                 }
-                else if(i == players.position.x && j == players.position.y)
+                else if (i == players.position.x && j == players.position.y)
                 {
                     s += " P ";
                 }
@@ -245,8 +260,8 @@ public class IAMinotaure : MonoBehaviour
             s += "\n";
         }
         print(s);
-        print("longueur matrice :" + mat.GetLength(0));
+        //print("longueur matrice :" + mat.GetLength(0));
 
     }
-    
+
 }
