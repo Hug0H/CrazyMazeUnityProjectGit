@@ -9,6 +9,7 @@ public class IAMinotaure : MonoBehaviour
     public int[,] DIST;
     public int[,] matrice;
     public int [] position;
+    
     public Player players = new Player();
 
     int tailleX;
@@ -16,13 +17,13 @@ public class IAMinotaure : MonoBehaviour
 
     int compteur;
     // Start is called before the first frame update
+    
     void Start()
     {
-
-        maze.Start();
-
+        
         matrice = maze.matrice;
         AffichageMatrice(matrice);
+        
 
         // AffichageMatrice(maze.matrice);
 
@@ -173,6 +174,7 @@ public class IAMinotaure : MonoBehaviour
         string result = choixPossibles[choix];
         if (result == "droite")
         {
+           
             position[0] += 1;
         }
         else if (result == "gauche")
@@ -200,7 +202,7 @@ public class IAMinotaure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        
         //AffichageMatrice(matrice);
         IA();
         AffichageMatrice(DIST);
@@ -236,7 +238,7 @@ public class IAMinotaure : MonoBehaviour
                 {
                     s += " X ";
                 }
-                else if(i == players.position.x && j == players.position.y)
+                else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
                 {
                     s += " P ";
                 }

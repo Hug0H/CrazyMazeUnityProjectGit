@@ -18,9 +18,10 @@ public class GameHub : MonoBehaviour
     {
         Vector3 spawnPlayer = maze.getAleaSpawn();
         Vector3 spawnMinos = maze.getAleaSpawn();
-        print(spawnPlayer);
         Instantiate(player,spawnPlayer , Quaternion.identity);
-        Instantiate(minos, spawnMinos, Quaternion.identity);
+        GameObject unMinos=Instantiate(minos, spawnMinos, Quaternion.identity);
+        
+
 
 
     }
