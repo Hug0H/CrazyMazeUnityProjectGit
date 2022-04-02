@@ -11,10 +11,13 @@ public class MazeGen : MonoBehaviour
     int currentI;
     int currentJ;
     Stack<(int, int)> pile = new Stack<(int, int)>();
+    public int tailleVisiteX;
+    public int tailleVisiteY;
+    [SerializeField]
+    private GameObject wallPrefabs=null;
 
-
-    private Vector3 groudSize; // valeur possible : 5n -1  
-    private int sizeCellule;
+    public Vector3 groudSize; // valeur possible : 5n -1  
+    public int sizeCellule;
 
     private void AffichageMatrice(int[,] mat)
     {
@@ -32,17 +35,12 @@ public class MazeGen : MonoBehaviour
 
         }
 
-        //print(s);
+        print(s);
         //print("longueur matrice :" + mat.GetLength(0));
     }
     // Start is called before the first frame update
-    public void Start()
+    private void grid()
     {
-        //setup de valeur importante
-        sizeCellule = 2;
-        groudSize = transform.localScale;
-
-        //Initialisation de la matrice rempli
         matrice = new int[(int)groudSize.x, (int)groudSize.y];
         int tailleX = matrice.GetLength(0);
         int tailleY = matrice.GetLength(1);
@@ -71,13 +69,13 @@ public class MazeGen : MonoBehaviour
             }
 
         }
-        AffichageMatrice(matrice);
-
-        //matrice des visites
+    }
+    private void initMatriceVisite()
+    {
         matriceVisite = new int[(int)groudSize.x / sizeCellule, (int)groudSize.y / sizeCellule];
         //Initialisation de la matrice booléenne
-        int tailleVisiteX = matriceVisite.GetLength(0);
-        int tailleVisiteY = matriceVisite.GetLength(1);
+        tailleVisiteX = matriceVisite.GetLength(0);
+        tailleVisiteY = matriceVisite.GetLength(1);
         for (int i = 0; i < tailleVisiteX; i++)
         {
             for (int j = 0; j < tailleVisiteY; j++)
@@ -85,6 +83,25 @@ public class MazeGen : MonoBehaviour
                 matriceVisite[i, j] = 0;
             }
         }
+    }
+    public void Start()
+    {
+
+
+    }
+    private void Awake()
+    {
+        //setup de valeur importante
+        sizeCellule = 5;
+        groudSize = transform.localScale;
+
+        //Initialisation de la matrice rempli
+        grid();
+
+        AffichageMatrice(matrice);
+
+        //matrice des visites
+        initMatriceVisite();
         //print("--------------------------------------------------------------------------------");
         AffichageMatrice(matriceVisite);
 
@@ -95,12 +112,44 @@ public class MazeGen : MonoBehaviour
         currentJ = Random.Range(0, tailleVisiteY);
         //print(currentJ);
         matriceVisite[currentI, currentJ] = 1;
+
         pile.Push((currentI, currentJ));
         GenLab();
+        AffichageMatrice(matrice);
+        GenererMaze();
 
+
+    }
+    public Vector3 getAleaSpawn()
+    {
+     
+        int i=Random.Range(-(tailleVisiteX - 1) / 2, (tailleVisiteX - 1) / 2);
+        int y = Random.Range(-(tailleVisiteX - 1) / 2, (tailleVisiteX - 1) / 2);
+        Vector3 vec = new Vector3(i*sizeCellule, 2, y * sizeCellule);
+        return vec;
+    }
+    private void GenererMaze()
+    {
+        for (int i = 0; i < groudSize.x; i++)
+        {
+            for (int j = 0; j < groudSize.y; j++)
+            {
+                
+               
+                
+
+                if (matrice[i, j] == 1)
+                {
+                    Vector3 pos = new Vector3(-groudSize.x / 2+0.5f + i , 1.5f, -groudSize.y / 2 + j+0.5f);
+                    GameObject wall =Instantiate(wallPrefabs, pos, Quaternion.identity) as GameObject;
+                    wall.transform.localScale = new Vector3( 1,3,1);
+                }
+            }
+        }
     }
     void GenLab()
     {
+        
         while (pile.Count != 0)
         {
             int interI = currentI * sizeCellule + 1;

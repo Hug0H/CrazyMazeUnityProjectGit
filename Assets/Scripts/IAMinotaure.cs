@@ -66,6 +66,8 @@ public class IAMinotaure : MonoBehaviour
     }
     int[,] InitDistPlayer(int xp, int yp)
     {
+        xp += (int)(maze.groudSize.x / 2);
+        yp += (int)(maze.groudSize.y / 2);
         for (int x = 0; x < tailleX; x++)
         {
             for (int y = 0; y < tailleY; y++)
@@ -123,6 +125,7 @@ public class IAMinotaure : MonoBehaviour
     int[,] CalculDistPlayer(int xp, int yp)
     {
         InitDistPlayer(xp, yp);
+        AffichageMatrice(DIST);
         // Parcours de calcules des distances
         for (int i = 0; i < 2; i++)
         {
