@@ -27,8 +27,6 @@ public class IAMinotaure : MonoBehaviour
 
         // AffichageMatrice(maze.matrice);
 
-        AffichageMatrice(maze.matrice);
-
         DIST = (int[,])matrice.Clone();
 
         tailleX = DIST.GetLength(1);//Renvoie le nombre de colonne
@@ -90,15 +88,15 @@ public class IAMinotaure : MonoBehaviour
 
     int[,] UpdateDistPlayer()
     {
-        print("coucou");
+        //print("coucou");
         for (int x = 1; x < tailleX - 1; x++)
         {
             for (int y = 1; y < tailleY - 1; y++)
             {
-                print("coucou1");
+                //print("coucou1");
                 if (DIST[x, y] == 999)
                 {
-                    print("coucou2");
+                    //print("coucou2");
                     continue;
                 }
                 else
@@ -108,9 +106,9 @@ public class IAMinotaure : MonoBehaviour
                     if (DIST[x, y] > valeurMin)
                     {
                         DIST[x, y] = valeurMin + 1;
-                        print("coucou3");
+                        //print("coucou3");
                     }
-                    print("coucou4");
+                    //print("coucou4");
                 }
             }
         }
