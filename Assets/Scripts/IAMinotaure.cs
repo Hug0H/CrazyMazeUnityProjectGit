@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -26,15 +27,9 @@ public class IAMinotaure : MonoBehaviour
 
         // AffichageMatrice(maze.matrice);
 
-        //AffichageMatrice(maze.matrice);
+        AffichageMatrice(maze.matrice);
 
-        //DIST = new int[matrice.GetLength(0), matrice.GetLength(1)];
-        //DIST = new int[100, 100];
         DIST = (int[,])matrice.Clone();
-        //System.Array.Copy(maze.matrice, DIST, 5000);
-        //matrice = maze.GenLab();
-        //System.Array.Copy(maze.GenLab(),matrice, maze.GenLab().Length);
-        //AffichageMatrice(DIST);
 
         tailleX = DIST.GetLength(1);//Renvoie le nombre de colonne
         tailleY = DIST.GetLength(0);//Renvoie le nombre de ligne
@@ -124,6 +119,16 @@ public class IAMinotaure : MonoBehaviour
 
     int[,] CalculDistPlayer(int xp, int yp)
     {
+        /*InitDistPlayer(xp, yp);
+        int[,] Previous = (int[,])DIST.Clone();
+        // Parcours de calcules des distances
+        while (Comparer(DIST, Previous) == false)
+        {
+            Previous = (int[,])DIST.Clone();
+            UpdateDistPlayer();
+        }
+        UpdateDistPlayer();
+        return DIST;*/
         InitDistPlayer(xp, yp);
         // Parcours de calcules des distances
         for (int i = 0; i < 30; i++)
@@ -159,11 +164,11 @@ public class IAMinotaure : MonoBehaviour
             choixPossibles[compteur] = "gauche";
             compteur += 1;
         }
-        print("choixPossibles :");
-        for (int i=0; i < choixPossibles.Length; i++)
+        //print("choixPossibles :");
+        /*for (int i=0; i < choixPossibles.Length; i++)
         {
             print("choixPossibles" +"["+i+"] = " + choixPossibles[i]);
-        }
+        }*/
         
         return choixPossibles;
     }
@@ -176,7 +181,7 @@ public class IAMinotaure : MonoBehaviour
         string[] choixPossibles = MinautorePossibleMove();
         int choix = Random.Range(0, compteur);
         string result = choixPossibles[choix];
-        print(result);
+        //print(result);
         if (result == "droite")
         {
             position[0] += 1;
@@ -211,10 +216,10 @@ public class IAMinotaure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
+        //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
         IA();
-        
+
     }
 
 
@@ -224,7 +229,7 @@ public class IAMinotaure : MonoBehaviour
         int mimimum = 999;
         for (int i = 0; i < tab.Length; i++)
         {
-            print("Tab[" + i + "] = " + tab[i]);
+            //print("Tab[" + i + "] = " + tab[i]);
             if (mimimum > tab[i])
             {
                 mimimum = tab[i];
@@ -232,6 +237,18 @@ public class IAMinotaure : MonoBehaviour
         }
         return mimimum;
     }
+    /*bool Comparer(int [,] tab1, int[,] tab2)
+    {
+        for (int i = 0; i < tab1.Length; i++)
+        {
+            for (int j = 0; j < tab1.Length; j++)
+            {
+                if (tab1[i, j] != tab2[i, j])
+                    return false;
+            }
+        }
+        return true;
+    }*/
 
     private void AffichageMatrice(int[,] mat)
     {
@@ -260,7 +277,6 @@ public class IAMinotaure : MonoBehaviour
             s += "\n";
         }
         print(s);
-        //print("longueur matrice :" + mat.GetLength(0));
 
     }
 

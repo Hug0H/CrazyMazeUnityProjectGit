@@ -32,7 +32,7 @@ public class MazeGen : MonoBehaviour
 
         }
 
-        //print(s);
+        print(s);
         //print("longueur matrice :" + mat.GetLength(0));
     }
     // Start is called before the first frame update
@@ -233,9 +233,9 @@ public class MazeGen : MonoBehaviour
                     }
                 }
                 pile.Push((currentI, currentJ));
-                AffichageMatrice(matrice);
+                //AffichageMatrice(matrice);
                 //print("-----------------------------------------------------------");
-                AffichageMatrice(matriceVisite);
+                //AffichageMatrice(matriceVisite);
             }
             //S'il n'y en pas, on revient à la case précédente et on recommence.
             else
