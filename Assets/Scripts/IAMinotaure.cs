@@ -9,12 +9,8 @@ public class IAMinotaure : MonoBehaviour
     public MazeGen maze;
     public int[,] DIST;
     public int[,] matrice;
-<<<<<<< HEAD
     public int [] position;
     
-=======
-    public int[] position;
->>>>>>> Gabriel
     public Player players = new Player();
 
     int tailleX;
@@ -27,12 +23,8 @@ public class IAMinotaure : MonoBehaviour
     {
         
         matrice = maze.matrice;
-<<<<<<< HEAD
-        AffichageMatrice(matrice);
-=======
->>>>>>> Gabriel
-        
 
+       
         // AffichageMatrice(maze.matrice);
 
         DIST = (int[,])matrice.Clone();
@@ -226,11 +218,7 @@ public class IAMinotaure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
-        
-=======
         //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
->>>>>>> Gabriel
         //AffichageMatrice(matrice);
         IA();
 
@@ -279,11 +267,11 @@ public class IAMinotaure : MonoBehaviour
                 {
                     s += " X ";
                 }
-<<<<<<< HEAD
+
                 else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
-=======
-                else if (i == players.position.x && j == players.position.y)
->>>>>>> Gabriel
+
+                //else if (i == players.position.x && j == players.position.y)
+
                 {
                     s += " P ";
                 }
