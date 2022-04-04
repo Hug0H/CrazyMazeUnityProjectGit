@@ -282,9 +282,9 @@ public class MazeGen : MonoBehaviour
                     }
                 }
                 pile.Push((currentI, currentJ));
-                AffichageMatrice(matrice);
+                //AffichageMatrice(matrice);
                 //print("-----------------------------------------------------------");
-                AffichageMatrice(matriceVisite);
+                //AffichageMatrice(matriceVisite);
             }
             //S'il n'y en pas, on revient à la case précédente et on recommence.
             else
