@@ -6,26 +6,27 @@ using UnityEngine;
 
 public class IAMinotaure : MonoBehaviour
 {
-    public MazeGen maze;
-    public int[,] DIST;
-    public int[,] matrice;
-    public int [] position;
-    
-    public Player players = new Player();
+    private MazeGen maze;
+    private int[,] DIST;
+    private int[,] matrice;
+    private int [] position;
 
-    int tailleX;
-    int tailleY;
+    private Player players = new Player();
+
+    private int tailleX;
+    private int tailleY;
 
     int compteur;
     // Start is called before the first frame update
     
     void Start()
     {
-        
-        matrice = maze.matrice;
+        this.maze.Start();
+
+        this.matrice = maze.GetMatrice();
 
        
-        // AffichageMatrice(maze.matrice);
+        //AffichageMatrice(maze.matrice);
 
         DIST = (int[,])matrice.Clone();
 
@@ -61,8 +62,8 @@ public class IAMinotaure : MonoBehaviour
     }
     int[,] InitDistPlayer(int xp, int yp)
     {
-        xp += (int)(maze.groudSize.x / 2);
-        yp += (int)(maze.groudSize.y / 2);
+        //xp += (int)(maze.groudSize.x / 2);
+        //yp += (int)(maze.groudSize.y / 2);
         for (int x = 0; x < tailleX; x++)
         {
             for (int y = 0; y < tailleY; y++)
@@ -130,7 +131,6 @@ public class IAMinotaure : MonoBehaviour
         UpdateDistPlayer();
         return DIST;*/
         InitDistPlayer(xp, yp);
-        AffichageMatrice(DIST);
         // Parcours de calcules des distances
         for (int i = 0; i < 30; i++)
         {
@@ -210,7 +210,6 @@ public class IAMinotaure : MonoBehaviour
         if (position[1] == players.position.x && players.position.y == position[0])
         {
             print("collision");
-            //Application.Quit();
         }
     }
 

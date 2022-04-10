@@ -5,12 +5,15 @@ using UnityEngine;
 public class GameHub : MonoBehaviour
 {
     public MazeGen maze;
+    private int[,] mazeMatrice;
     public GameObject player;
     public GameObject minos;
 
     // Start is called before the first frame update
     void Start()
     {
+        maze.Start();
+        this.mazeMatrice = maze.GetMatrice();
         spawnCaracters();
         
     }
@@ -20,18 +23,14 @@ public class GameHub : MonoBehaviour
         Vector3 spawnMinos = maze.getAleaSpawn();
         Instantiate(player,spawnPlayer , Quaternion.identity);
         GameObject unMinos=Instantiate(minos, spawnMinos, Quaternion.identity);
-        
-
-
-
     }
     public Vector3 getPlayerSpawn()
     {
         
-        int i = Random.Range(0, maze.tailleVisiteX);
-        int e = Random.Range(0, maze.tailleVisiteY);
-        int chose=maze.matrice[i * maze.sizeCellule, e * maze.sizeCellule];
-        Vector3 vec = new Vector3( ((maze.sizeCellule-1) / 2 +1) * i, 1, ((maze.sizeCellule-1) / 2+1)*e);
+        int i = Random.Range(0, maze.GetTailleVisiteX());
+        int e = Random.Range(0, maze.GetTailleVisiteX());
+        int chose= mazeMatrice[i * maze.GetTailleCellule(), e * maze.GetTailleCellule()];
+        Vector3 vec = new Vector3( ((maze.GetTailleCellule() - 1) / 2 +1) * i, 1, ((maze.GetTailleCellule() - 1) / 2+1)*e);
         return vec;
     }
 

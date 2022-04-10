@@ -6,18 +6,20 @@ using UnityEngine;
 public class MazeGen : MonoBehaviour
 {
     //matrice 0= vide || 1= mur
-    public int[,] matrice;
+    private int[,] matrice;
     private int[,] matriceVisite;
-    int currentI;
-    int currentJ;
-    Stack<(int, int)> pile = new Stack<(int, int)>();
-    public int tailleVisiteX;
-    public int tailleVisiteY;
+    private int currentI;
+    private int currentJ;
+    private Stack<(int, int)> pile = new Stack<(int, int)>();
+
+
+    private int tailleVisiteX;
+    private int tailleVisiteY;
     [SerializeField]
     private GameObject wallPrefabs=null;
 
     public Vector3 groudSize; // valeur possible : 5n -1  
-    public int sizeCellule;
+    private int sizeCellule;
 
     private void AffichageMatrice(int[,] mat)
     {
@@ -34,13 +36,37 @@ public class MazeGen : MonoBehaviour
             s += "\n";
 
         }
-
         print(s);
-        //print("longueur matrice :" + mat.GetLength(0));
+    }
+    //Accesseur de l'attribut matrice ! 
+    public int [,] GetMatrice()
+    {
+        return this.matrice;
+    }
+    //Accesseur de l'attribut TailleVisiteX ! 
+    public int GetTailleVisiteX()
+    {
+        return tailleVisiteX;
+    }
+    //Accesseur de l'attribut TailleVisiteY ! 
+    public int GetTailleVisiteY()
+    {
+        return tailleVisiteY;
+    }
+
+    //Accesseur de l'attribut tailleCellule ! 
+    public int GetTailleCellule()
+    {
+        return sizeCellule;
     }
     // Start is called before the first frame update
-    private void grid()
+    public void Start()
     {
+        //setup de valeur importante
+        sizeCellule = 5;
+        groudSize = transform.localScale;
+
+        //Initialisation de la matrice rempli
         matrice = new int[(int)groudSize.x, (int)groudSize.y];
         int tailleX = matrice.GetLength(0);
         int tailleY = matrice.GetLength(1);
@@ -69,9 +95,9 @@ public class MazeGen : MonoBehaviour
             }
 
         }
-    }
-    private void initMatriceVisite()
-    {
+        AffichageMatrice(matrice);
+
+        //matrice des visites
         matriceVisite = new int[(int)groudSize.x / sizeCellule, (int)groudSize.y / sizeCellule];
         //Initialisation de la matrice booléenne
         tailleVisiteX = matriceVisite.GetLength(0);
@@ -83,25 +109,6 @@ public class MazeGen : MonoBehaviour
                 matriceVisite[i, j] = 0;
             }
         }
-    }
-    public void Start()
-    {
-
-
-    }
-    private void Awake()
-    {
-        //setup de valeur importante
-        sizeCellule = 5;
-        groudSize = transform.localScale;
-
-        //Initialisation de la matrice rempli
-        grid();
-
-        AffichageMatrice(matrice);
-
-        //matrice des visites
-        initMatriceVisite();
         //print("--------------------------------------------------------------------------------");
         AffichageMatrice(matriceVisite);
 
@@ -112,17 +119,12 @@ public class MazeGen : MonoBehaviour
         currentJ = Random.Range(0, tailleVisiteY);
         //print(currentJ);
         matriceVisite[currentI, currentJ] = 1;
-
         pile.Push((currentI, currentJ));
         GenLab();
-        AffichageMatrice(matrice);
         GenererMaze();
-
-
     }
     public Vector3 getAleaSpawn()
     {
-     
         int i=Random.Range(-(tailleVisiteX - 1) / 2, (tailleVisiteX - 1) / 2);
         int y = Random.Range(-(tailleVisiteX - 1) / 2, (tailleVisiteX - 1) / 2);
         Vector3 vec = new Vector3(i*sizeCellule, 2, y * sizeCellule);
@@ -134,15 +136,11 @@ public class MazeGen : MonoBehaviour
         {
             for (int j = 0; j < groudSize.y; j++)
             {
-                
-               
-                
-
                 if (matrice[i, j] == 1)
                 {
                     Vector3 pos = new Vector3(-groudSize.x / 2+0.5f + i , 1.5f, -groudSize.y / 2 + j+0.5f);
-                    GameObject wall =Instantiate(wallPrefabs, pos, Quaternion.identity) as GameObject;
-                    wall.transform.localScale = new Vector3( 1,3,1);
+                    //GameObject wall =Instantiate(wallPrefabs, pos, Quaternion.identity) as GameObject;
+                    //wall.transform.localScale = new Vector3( 1,3,1);
                 }
             }
         }
