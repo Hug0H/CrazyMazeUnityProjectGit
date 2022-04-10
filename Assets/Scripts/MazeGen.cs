@@ -139,8 +139,8 @@ public class MazeGen : MonoBehaviour
                 if (matrice[i, j] == 1)
                 {
                     Vector3 pos = new Vector3(-groudSize.x / 2+0.5f + i , 1.5f, -groudSize.y / 2 + j+0.5f);
-                    //GameObject wall =Instantiate(wallPrefabs, pos, Quaternion.identity) as GameObject;
-                    //wall.transform.localScale = new Vector3( 1,3,1);
+                    GameObject wall =Instantiate(wallPrefabs, pos, Quaternion.identity) as GameObject;
+                    wall.transform.localScale = new Vector3( 1,3,1);
                 }
             }
         }

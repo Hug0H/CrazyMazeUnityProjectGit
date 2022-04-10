@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class IAMinotaure : MonoBehaviour
 {
-    private MazeGen maze;
+    public MazeGen maze;
     private int[,] DIST;
     private int[,] matrice;
     private int [] position;
@@ -19,9 +19,10 @@ public class IAMinotaure : MonoBehaviour
     int compteur;
     // Start is called before the first frame update
     
-    void Start()
+    public void Start()
     {
-        this.maze.Start();
+        //maze = new MazeGen();
+        maze.Start();
 
         this.matrice = maze.GetMatrice();
 

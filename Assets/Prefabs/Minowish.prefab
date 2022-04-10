@@ -2135,8 +2135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maze: {fileID: 0}
-  position: 
-  players: {fileID: 8865239043480340645, guid: f9c4f054f5da2224c9d33fd25c764c8d, type: 3}
 --- !u!1 &8736833518427787898
 GameObject:
   m_ObjectHideFlags: 0
