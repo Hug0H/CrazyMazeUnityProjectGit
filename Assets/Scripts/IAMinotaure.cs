@@ -21,13 +21,15 @@ public class IAMinotaure : MonoBehaviour
     
     public void Start()
     {
+        players.position.x = maze.groudSize.x / 2;
+        players.position.y = maze.groudSize.y / 2;
         //maze = new MazeGen();
-        maze.Start();
+        //maze.Start();
 
         this.matrice = maze.GetMatrice();
 
        
-        //AffichageMatrice(maze.matrice);
+        maze.AffichageMatrice(this.matrice);
 
         DIST = (int[,])matrice.Clone();
 
@@ -268,9 +270,9 @@ public class IAMinotaure : MonoBehaviour
                     s += " X ";
                 }
 
-                else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
+                //else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
 
-                //else if (i == players.position.x && j == players.position.y)
+                else if (i == players.position.x && j == players.position.y)
 
                 {
                     s += " P ";

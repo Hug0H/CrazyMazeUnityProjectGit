@@ -12,8 +12,8 @@ public class GameHub : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maze.Start();
         this.mazeMatrice = maze.GetMatrice();
+        maze.AffichageMatrice(mazeMatrice);
         spawnCaracters();
         
     }

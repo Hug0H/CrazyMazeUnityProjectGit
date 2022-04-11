@@ -21,7 +21,7 @@ public class MazeGen : MonoBehaviour
     public Vector3 groudSize; // valeur possible : 5n -1  
     private int sizeCellule;
 
-    private void AffichageMatrice(int[,] mat)
+    public void AffichageMatrice(int[,] mat)
     {
 
         string s = "";
@@ -60,7 +60,7 @@ public class MazeGen : MonoBehaviour
         return sizeCellule;
     }
     // Start is called before the first frame update
-    public void Start()
+    public void Awake()
     {
         //setup de valeur importante
         sizeCellule = 5;
@@ -95,7 +95,7 @@ public class MazeGen : MonoBehaviour
             }
 
         }
-        AffichageMatrice(matrice);
+        
 
         //matrice des visites
         matriceVisite = new int[(int)groudSize.x / sizeCellule, (int)groudSize.y / sizeCellule];
@@ -121,7 +121,6 @@ public class MazeGen : MonoBehaviour
         matriceVisite[currentI, currentJ] = 1;
         pile.Push((currentI, currentJ));
         GenLab();
-        GenererMaze();
     }
     public Vector3 getAleaSpawn()
     {
@@ -132,6 +131,7 @@ public class MazeGen : MonoBehaviour
     }
     private void GenererMaze()
     {
+        AffichageMatrice(matrice);
         for (int i = 0; i < groudSize.x; i++)
         {
             for (int j = 0; j < groudSize.y; j++)
@@ -291,5 +291,6 @@ public class MazeGen : MonoBehaviour
             }
             GenLab();
         }
+        GenererMaze();
     }
 }

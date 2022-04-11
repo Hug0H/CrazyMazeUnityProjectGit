@@ -6,10 +6,11 @@ using SDD.Events;
 public class Player : MonoBehaviour
 {
     public Vector2 position;
+    public MazeGen maze;
     // Start is called before the first frame update
     void Start()
     {
-        position.x = 7;
-        position.y = 7;
+        position.x = maze.groudSize.x / 2;
+        position.y = maze.groudSize.y / 2;
     }
 }
