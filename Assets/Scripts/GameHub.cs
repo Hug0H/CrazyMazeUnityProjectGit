@@ -6,9 +6,11 @@ public class GameHub : MonoBehaviour
 {
     public MazeGen maze;
     private int[,] mazeMatrice;
-    public GameObject player;
-    public GameObject minos;
 
+    private GameObject PrefabPlayer;
+    private List <GameObject> player_list;
+    public GameObject minos;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -17,12 +19,18 @@ public class GameHub : MonoBehaviour
         spawnCaracters();
         
     }
+    //Accesseur du player
+    public List<GameObject> GetPlayer_List()
+    {
+        return player_list;
+    }
     private void spawnCaracters()
     {
-        Vector3 spawnPlayer = maze.getAleaSpawn();
-        Vector3 spawnMinos = maze.getAleaSpawn();
-        Instantiate(player,spawnPlayer , Quaternion.identity);
-        GameObject unMinos=Instantiate(minos, spawnMinos, Quaternion.identity);
+
+        Vector3 spawnPlayer = getAleaSpawn();
+        Vector3 spawnMinos = getAleaSpawn();
+        player_list[0] = Instantiate(PrefabPlayer, spawnPlayer , Quaternion.identity);
+        GameObject unMinos =Instantiate(minos, spawnMinos, Quaternion.identity);
     }
     public Vector3 getPlayerSpawn()
     {
@@ -31,6 +39,13 @@ public class GameHub : MonoBehaviour
         int e = Random.Range(0, maze.GetTailleVisiteX());
         int chose= mazeMatrice[i * maze.GetTailleCellule(), e * maze.GetTailleCellule()];
         Vector3 vec = new Vector3( ((maze.GetTailleCellule() - 1) / 2 +1) * i, 1, ((maze.GetTailleCellule() - 1) / 2+1)*e);
+        return vec;
+    }
+    public Vector3 getAleaSpawn()
+    {
+        int i = Random.Range(-(maze.GetTailleVisiteX() - 1) / 2, (maze.GetTailleVisiteX() - 1) / 2);
+        int y = Random.Range(-(maze.GetTailleVisiteX() - 1) / 2, (maze.GetTailleVisiteX() - 1) / 2);
+        Vector3 vec = new Vector3(i * maze.GetTailleCellule(), 2, y * maze.GetTailleCellule());
         return vec;
     }
 

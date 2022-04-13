@@ -11,7 +11,8 @@ public class IAMinotaure : MonoBehaviour
     private int[,] matrice;
     private int [] position;
 
-    private Player players = new Player();
+    private GameObject gameHub;
+    //private List<Player> players;
 
     private int tailleX;
     private int tailleY;
@@ -21,8 +22,9 @@ public class IAMinotaure : MonoBehaviour
     
     public void Start()
     {
-        players.position.x = maze.groudSize.x / 2;
-        players.position.y = maze.groudSize.y / 2;
+        gameHub = GameObject.FindGameObjectWithTag("GameHub");
+        gameHub.GetComponent<GameHub>();
+        
         //maze = new MazeGen();
         //maze.Start();
 
@@ -179,7 +181,7 @@ public class IAMinotaure : MonoBehaviour
     void IA()
     {
         DIST = PreInitDistPlayer();
-        DIST = CalculDistPlayer((int)players.position.x, (int)players.position.y);
+        DIST = CalculDistPlayer((int)players.GetPosition().x, (int)players.GetPosition().y);
 
         //deplacement Minautore
         string[] choixPossibles = MinautorePossibleMove();
@@ -210,10 +212,10 @@ public class IAMinotaure : MonoBehaviour
         AffichageMatrice(DIST);
         print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
 
-        if (position[1] == players.position.x && players.position.y == position[0])
+        /*if (position[1] == players.position.x && players.position.y == position[0])
         {
             print("collision");
-        }
+        }*/
     }
 
 
@@ -223,6 +225,7 @@ public class IAMinotaure : MonoBehaviour
         //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
         IA();
+        print("coucou");
 
     }
 
@@ -272,7 +275,7 @@ public class IAMinotaure : MonoBehaviour
 
                 //else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
 
-                else if (i == players.position.x && j == players.position.y)
+                else if (i == players.GetPosition().x && j == players.GetPosition().y)
 
                 {
                     s += " P ";

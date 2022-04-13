@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 1380437745}
   m_Layer: 0
   m_Name: GameHub
-  m_TagString: Untagged
+  m_TagString: GameHub
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -330,7 +330,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maze: {fileID: 1715875730}
-  player: {fileID: 8865239043480340646, guid: f9c4f054f5da2224c9d33fd25c764c8d, type: 3}
   minos: {fileID: 8638251951123410285, guid: 9a2a26017f2f5df4eaf4fa16f5b25936, type: 3}
 --- !u!4 &1380437744
 Transform:
@@ -483,6 +482,10 @@ PrefabInstance:
       objectReference: {fileID: 1715875730}
     - target: {fileID: 5088458423741999747, guid: 93e27c9e32055524298ab0e79fecd80a, type: 3}
       propertyPath: m_Name
+      value: GameHub
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088458423741999747, guid: 93e27c9e32055524298ab0e79fecd80a, type: 3}
+      propertyPath: m_TagString
       value: GameHub
       objectReference: {fileID: 0}
     - target: {fileID: 5088458423741999773, guid: 93e27c9e32055524298ab0e79fecd80a, type: 3}

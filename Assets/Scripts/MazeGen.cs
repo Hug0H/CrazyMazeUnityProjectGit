@@ -122,16 +122,9 @@ public class MazeGen : MonoBehaviour
         pile.Push((currentI, currentJ));
         GenLab();
     }
-    public Vector3 getAleaSpawn()
-    {
-        int i=Random.Range(-(tailleVisiteX - 1) / 2, (tailleVisiteX - 1) / 2);
-        int y = Random.Range(-(tailleVisiteX - 1) / 2, (tailleVisiteX - 1) / 2);
-        Vector3 vec = new Vector3(i*sizeCellule, 2, y * sizeCellule);
-        return vec;
-    }
     private void GenererMaze()
     {
-        AffichageMatrice(matrice);
+        //AffichageMatrice(matrice);
         for (int i = 0; i < groudSize.x; i++)
         {
             for (int j = 0; j < groudSize.y; j++)
