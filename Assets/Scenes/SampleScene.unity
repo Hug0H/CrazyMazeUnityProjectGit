@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -309,7 +309,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1380437744}
   - component: {fileID: 1380437743}
-  - component: {fileID: 1380437745}
   m_Layer: 0
   m_Name: GameHub
   m_TagString: GameHub
@@ -330,6 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maze: {fileID: 1715875730}
+  Joueur: {fileID: 8865239043480340646, guid: f9c4f054f5da2224c9d33fd25c764c8d, type: 3}
   minos: {fileID: 8638251951123410285, guid: 9a2a26017f2f5df4eaf4fa16f5b25936, type: 3}
 --- !u!4 &1380437744
 Transform:
@@ -345,19 +345,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1380437745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1380437742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a88e76ca26c231d4582df71cff129e4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maze: {fileID: 1715875730}
 --- !u!1 &1715875725
 GameObject:
   m_ObjectHideFlags: 0

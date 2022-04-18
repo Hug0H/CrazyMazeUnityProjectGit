@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+//Cette classe appliquée sur le minotautorre prend en paramettre la position du joueur dans la matrice, ainsi que la matyrice du labyrynthe 
 
 public class IAMinotaure : MonoBehaviour
 {
+    float time;
+    public float TimerInterval = 5f;
+    float tick;
     public MazeGen maze;
     private int[,] DIST;
     private int[,] matrice;
@@ -13,18 +17,24 @@ public class IAMinotaure : MonoBehaviour
 
     private GameObject gameHub;
     //private List<Player> players;
-
+    private Vector2 firstPlayerPos;
     private int tailleX;
     private int tailleY;
 
     int compteur;
     // Start is called before the first frame update
     
+    void Awake()
+    {
+        time = (int)Time.time;
+        tick = TimerInterval;
+    }
     public void Start()
     {
-        gameHub = GameObject.FindGameObjectWithTag("GameHub");
-        gameHub.GetComponent<GameHub>();
-        
+        GameObject gameHub = GameObject.FindGameObjectWithTag("GameHub");
+        GameHub hub =gameHub.GetComponent<GameHub>();
+        firstPlayerPos = hub.getPlayer().getPosInMaze();
+        maze = hub.maze;
         //maze = new MazeGen();
         //maze.Start();
 
@@ -178,54 +188,79 @@ public class IAMinotaure : MonoBehaviour
         
         return choixPossibles;
     }
-    void IA()
+    void IA( )
     {
+       
         DIST = PreInitDistPlayer();
-        DIST = CalculDistPlayer((int)players.GetPosition().x, (int)players.GetPosition().y);
+        DIST = CalculDistPlayer((int)firstPlayerPos.x, (int)firstPlayerPos.y);
 
         //deplacement Minautore
         string[] choixPossibles = MinautorePossibleMove();
         int choix = Random.Range(0, compteur);
         string result = choixPossibles[choix];
+        
         //print(result);
         if (result == "droite")
         {
-           
+            print("droite");
             position[0] += 1;
             position[1] += 0;
+            transform.Translate(1, 0, 0);
         }
         else if (result == "gauche")
         {
+            print("gauche");
             position[0] -= 1;
             position[1] -= 0;
+            transform.Translate(-1, 0, 0);
         }
         else if (result == "haut")
         {
+            print("devant");
             position[0] += 0;
             position[1] -= 1;
+            transform.Translate(0, 0, 1);
         }
         else if (result == "bas")
         {
+            print("derrière");
             position[0] += 0;
             position[1] += 1;
+            transform.Translate(0, 0, -1);
         }
-        AffichageMatrice(DIST);
-        print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
+        //AffichageMatrice(DIST);
+        //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
 
         /*if (position[1] == players.position.x && players.position.y == position[0])
         {
             print("collision");
         }*/
+        
+    }
+    IEnumerator waiter(int sec)
+    {
+        yield return new WaitForSeconds(sec);
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        
+        time = (int)Time.time;
         //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
-        IA();
-        print("coucou");
+
+        
+        if (time == tick)
+        {
+            
+            tick = time + TimerInterval;
+            AffichageMatrice(DIST);
+            IA();
+        }
+        
+        
 
     }
 
@@ -275,7 +310,7 @@ public class IAMinotaure : MonoBehaviour
 
                 //else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
 
-                else if (i == players.GetPosition().x && j == players.GetPosition().y)
+                else if (i == firstPlayerPos.x && j == firstPlayerPos.y)
 
                 {
                     s += " P ";
