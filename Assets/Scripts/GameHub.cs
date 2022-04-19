@@ -28,8 +28,8 @@ public class GameHub : MonoBehaviour
     }
     private void spawnCaracters()
     {
-        Vector3 spawnPlayer = getAleaSpawn();
-        
+        //Vector3 spawnPlayer = getAleaSpawn();
+        Vector3 spawnPlayer = new Vector3(1,1,0);
         Vector3 spawnMinos = getAleaSpawn();
         
         Instantiate(Joueur, spawnPlayer , Quaternion.identity);

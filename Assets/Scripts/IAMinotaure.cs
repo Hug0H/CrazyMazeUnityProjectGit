@@ -50,8 +50,8 @@ public class IAMinotaure : MonoBehaviour
 
         //Poisition de départ du minautore.
         position = new int[2];
-        position[0] = 1;
-        position[1] = 1;
+        position[0] = 5;
+        position[1] = 5;
         
     }
 
