@@ -455,6 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallPrefabs: {fileID: 6838451133480734250, guid: b4612eddcc51c68459865d70cd34a3d9, type: 3}
+  cardinalPrefab: {fileID: 8771145086698773177, guid: 245f8875a9434174ebb453fc2e981f9a, type: 3}
   groudSize: {x: 0, y: 0, z: 0}
 --- !u!1001 &5088458425113486445
 PrefabInstance:

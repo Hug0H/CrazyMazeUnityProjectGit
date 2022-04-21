@@ -33,7 +33,7 @@ public class IAMinotaure : MonoBehaviour
     {
         GameObject gameHub = GameObject.FindGameObjectWithTag("GameHub");
         GameHub hub =gameHub.GetComponent<GameHub>();
-        firstPlayerPos = hub.getPlayer().getPosInMaze();
+        firstPlayerPos = hub.getPlayer().positionInMaze;
         maze = hub.maze;
         //maze = new MazeGen();
         //maze.Start();
@@ -200,34 +200,35 @@ public class IAMinotaure : MonoBehaviour
         string result = choixPossibles[choix];
         
         //print(result);
-        if (result == "droite")
+        if (result == "haut")
         {
-            print("droite");
+            
             position[0] += 1;
             position[1] += 0;
-            transform.Translate(1, 0, 0);
-        }
-        else if (result == "gauche")
-        {
-            print("gauche");
-            position[0] -= 1;
-            position[1] -= 0;
-            transform.Translate(-1, 0, 0);
-        }
-        else if (result == "haut")
-        {
-            print("devant");
-            position[0] += 0;
-            position[1] -= 1;
             transform.Translate(0, 0, 1);
         }
         else if (result == "bas")
         {
-            print("derrière");
+            
+            position[0] -= 1;
+            position[1] -= 0;
+            transform.Translate(-1, 0, 0);
+        }
+        else if (result == "droite")
+        {
+           
+            position[0] += 0;
+            position[1] -= 1;
+            transform.Translate(-1, 0, 0);
+        }
+        else if (result == "gauche")
+        {
+            
             position[0] += 0;
             position[1] += 1;
-            transform.Translate(0, 0, -1);
+            transform.Translate(1, 0, 0);
         }
+        print(result);
         //AffichageMatrice(DIST);
         //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
 
@@ -256,8 +257,9 @@ public class IAMinotaure : MonoBehaviour
         {
             
             tick = time + TimerInterval;
-            AffichageMatrice(DIST);
+            
             IA();
+            AffichageMatrice(DIST,"light");
         }
         
         
@@ -292,8 +294,9 @@ public class IAMinotaure : MonoBehaviour
         return true;
     }*/
 
-    private void AffichageMatrice(int[,] mat)
+    private void AffichageMatrice(int[,] mat, string mode)
     {
+
         string s = "";
         int row = mat.GetLength(0);
         //print(row);
@@ -303,6 +306,10 @@ public class IAMinotaure : MonoBehaviour
         {
             for (int j = 0; j < col; j++)
             {
+                if (i == 0 && j == 0)
+                {
+                    s += "00";
+                }
                 if (i == position[1] && j == position[0])
                 {
                     s += " X ";
@@ -317,7 +324,23 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else
                 {
-                    s += mat[i, j];
+                    if(mat[i, j] == 999)
+                    {
+                        s += "I";
+                    }
+                    else
+                    {
+                        if (mode == "light")
+                        {
+                            s += 0;
+                        }
+                        else
+                        {
+                            s += mat[i, j];
+                        }
+                        
+                    }
+                    
                 }
             }
             s += "\n";

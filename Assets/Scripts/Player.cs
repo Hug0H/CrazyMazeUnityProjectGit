@@ -5,7 +5,7 @@ using SDD.Events;
 
 public class Player : MonoBehaviour
 {
-    private Vector2 positionInMaze;
+    public Vector2 positionInMaze;
     public MazeGen maze;
     private int lives;
     
@@ -16,18 +16,21 @@ public class Player : MonoBehaviour
         
        
     }
-    public Vector2 getPosInMaze()
+    void Update()
     {
-        return positionInMaze;
+        
     }
-    public void setPosInMaze(Vector2 pos)
-    {
-         positionInMaze=pos;
-    }
+    
+   
 
     public void SetPosition(float x, float y)
     {
 
+    }
+    public void setPosInMaze(float halfGround)
+    {
+        Vector3 posPlayer = gameObject.GetComponent<Transform>().position;
+        positionInMaze= new Vector2((int)posPlayer.x + halfGround, (int)posPlayer.z + halfGround);
     }
    
 }

@@ -17,10 +17,13 @@ public class MazeGen : MonoBehaviour
     private int tailleVisiteY;
     [SerializeField]
     private GameObject wallPrefabs=null;
+    public GameObject cardinalPrefab;
 
     public Vector3 groudSize; // valeur possible : 5n -1  
     private int sizeCellule;
 
+
+    
     public void AffichageMatrice(int[,] mat)
     {
 
@@ -95,6 +98,7 @@ public class MazeGen : MonoBehaviour
             }
 
         }
+
         
 
         //matrice des visites
@@ -131,12 +135,38 @@ public class MazeGen : MonoBehaviour
             {
                 if (matrice[i, j] == 1)
                 {
-                    Vector3 pos = new Vector3(-groudSize.x / 2+0.5f + i , 1.5f, -groudSize.y / 2 + j+0.5f);
-                    GameObject wall =Instantiate(wallPrefabs, pos, Quaternion.identity) as GameObject;
+                    Vector3 posWall = new Vector3(-groudSize.x / 2+0.5f + i , 1.5f, -groudSize.y / 2 + j+0.5f);
+                    GameObject wall =Instantiate(wallPrefabs, posWall, Quaternion.identity) as GameObject;
                     wall.transform.localScale = new Vector3( 1,3,1);
                 }
+                
             }
         }
+        Vector3 pos = new Vector3(-groudSize.x / 2 + 0.5f + groudSize.x / 2, 1.5f, -groudSize.y / 2 + groudSize.y + 0.5f);
+        GameObject est = Instantiate(cardinalPrefab, pos, Quaternion.identity) as GameObject;
+        est.GetComponent<TextMesh>().text = "est";
+        est.GetComponent<TextMesh>().color = Color.red;
+        est.GetComponent<Transform>().rotation *= Quaternion.Euler(90, 0, 0);
+
+        pos = new Vector3(-groudSize.x / 2 + 0.5f + groudSize.x / 2, 1.5f, -groudSize.y / 2 + 0.5f);
+        GameObject ouest = Instantiate(cardinalPrefab, pos, Quaternion.identity) as GameObject;
+        ouest.GetComponent<TextMesh>().text = "ouest";
+        ouest.GetComponent<TextMesh>().color = Color.red;
+        ouest.GetComponent<Transform>().rotation *= Quaternion.Euler(90, 0, 180);
+        
+        pos = new Vector3(-groudSize.x / 2 + 0.5f, 1.5f, 0.5f);
+        GameObject nord = Instantiate(cardinalPrefab, pos, Quaternion.identity) as GameObject;
+        nord.GetComponent<TextMesh>().text = "nord";
+        nord.GetComponent<TextMesh>().color = Color.red;
+        nord.GetComponent<Transform>().rotation *= Quaternion.Euler(90, 0, 90);
+
+        pos = new Vector3(-groudSize.x / 2 + 0.5f + groudSize.x, 1.5f, -groudSize.y / 2 + groudSize.y / 2 + 0.5f);
+        GameObject sud = Instantiate(cardinalPrefab, pos, Quaternion.identity) as GameObject;
+        sud.GetComponent<TextMesh>().text = "sud";
+        sud.GetComponent<TextMesh>().color = Color.red;
+        sud.GetComponent<Transform>().rotation *= Quaternion.Euler(90, 0, -90);
+
+
     }
     void GenLab()
     {

@@ -35,7 +35,7 @@ public class GameHub : MonoBehaviour
         Instantiate(Joueur, spawnPlayer , Quaternion.identity);
         Instantiate(minos, spawnMinos, Quaternion.identity);
         Player PlayerComponent =Joueur.GetComponent<Player>();
-        PlayerComponent.setPosInMaze(spawnPlayer);
+        
        
       
     }
@@ -51,6 +51,7 @@ public class GameHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Joueur.GetComponent<Player>().setPosInMaze(maze.groudSize.x/2);
+        print(Joueur.GetComponent<Player>().positionInMaze);
     }
 }
