@@ -51,7 +51,15 @@ public class GameHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Joueur.GetComponent<Player>().setPosInMaze(maze.groudSize.x/2);
-        print(Joueur.GetComponent<Player>().positionInMaze);
+        print(getPosInMaze(Joueur));
+    }
+
+    
+    public Vector2 getPosInMaze(GameObject o)
+    {
+        Vector3 posO = o.GetComponent<Transform>().position;
+        print(posO);
+        Vector2 positionInMaze = new Vector2((int)posO.x + maze.groudSize.x/2, (int)posO.z + maze.groudSize.z/2);
+        return new Vector2();
     }
 }

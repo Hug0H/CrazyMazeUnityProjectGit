@@ -13,7 +13,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        lives = 3;
+        print(lives);
        
     }
     void Update()
