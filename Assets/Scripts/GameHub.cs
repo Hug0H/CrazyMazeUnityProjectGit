@@ -51,7 +51,7 @@ public class GameHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(getPosInMaze(Joueur));
+        //print(getPosInMaze(Joueur));
     }
 
     
