@@ -329,8 +329,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maze: {fileID: 1715875730}
-  prefabJoueur: {fileID: 8865239043480340646, guid: f9c4f054f5da2224c9d33fd25c764c8d, type: 3}
-  prefabMinos: {fileID: 8638251951123410285, guid: 9a2a26017f2f5df4eaf4fa16f5b25936, type: 3}
+  Joueur: {fileID: 8865239043480340646, guid: f9c4f054f5da2224c9d33fd25c764c8d, type: 3}
+  minos: {fileID: 8638251951123410285, guid: 9a2a26017f2f5df4eaf4fa16f5b25936, type: 3}
 --- !u!4 &1380437744
 Transform:
   m_ObjectHideFlags: 0
