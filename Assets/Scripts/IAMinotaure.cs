@@ -34,9 +34,6 @@ public class IAMinotaure : MonoBehaviour
         GameObject gameHub = GameObject.FindGameObjectWithTag("GameHub");
         GameHub hub =gameHub.GetComponent<GameHub>();
         firstPlayerPos = hub.getPlayer().positionInMaze;
-
-        firstPlayerPos = new Vector2(3, 3);
-
         maze = hub.maze;
         //maze = new MazeGen();
         //maze.Start();
@@ -206,29 +203,23 @@ public class IAMinotaure : MonoBehaviour
         if (result == "haut")
         {
             
-
             position[0] += 1;
             position[1] += 0;
             transform.Translate(0, 0, 1);
-
         }
         else if (result == "bas")
         {
             
-
             position[0] -= 1;
             position[1] -= 0;
             transform.Translate(-1, 0, 0);
-
         }
         else if (result == "droite")
         {
            
-
             position[0] += 0;
             position[1] -= 1;
             transform.Translate(-1, 0, 0);
-
         }
         else if (result == "gauche")
         {
@@ -236,11 +227,10 @@ public class IAMinotaure : MonoBehaviour
             position[0] += 0;
             position[1] += 1;
             transform.Translate(1, 0, 0);
-
         }
         print(result);
         //AffichageMatrice(DIST);
-        print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
+        //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
 
         /*if (position[1] == players.position.x && players.position.y == position[0])
         {
