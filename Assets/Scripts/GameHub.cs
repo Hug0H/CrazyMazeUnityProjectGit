@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class GameHub : MonoBehaviour
 {
     public MazeGen maze;
     private int[,] mazeMatrice;
    
-    public GameObject prefabJoueur;
+    [SerializeField]
     private GameObject Joueur;
-
-    public GameObject prefabMinos;
+    [SerializeField]
     private GameObject minos;
     
     // Start is called before the first frame update
@@ -24,19 +22,22 @@ public class GameHub : MonoBehaviour
         
     }
     //Accesseur du player
-    public GameObject getPlayer()
+    public Player getPlayer()
     {
-        return Joueur;
+        return Joueur.GetComponent<Player>();
     }
-   
     private void spawnCaracters()
     {
         //Vector3 spawnPlayer = getAleaSpawn();
         Vector3 spawnPlayer = new Vector3(1,1,0);
         Vector3 spawnMinos = getAleaSpawn();
         
-        Joueur=Instantiate(prefabJoueur, spawnPlayer , Quaternion.identity);
-        minos =Instantiate(prefabMinos, spawnMinos, Quaternion.identity);
+        Instantiate(Joueur, spawnPlayer , Quaternion.identity);
+        Instantiate(minos, spawnMinos, Quaternion.identity);
+        Player PlayerComponent =Joueur.GetComponent<Player>();
+        
+       
+      
     }
     
     public Vector3 getAleaSpawn()
@@ -50,15 +51,15 @@ public class GameHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       print(getPosInMaze(Joueur));
+        print(getPosInMaze(Joueur));
     }
 
     
     public Vector2 getPosInMaze(GameObject o)
     {
         Vector3 posO = o.GetComponent<Transform>().position;
-
-        Vector2 positionInMaze = new Vector2( Mathf.CeilToInt(posO.x) + maze.groudSize.x/2-1, Mathf.CeilToInt(posO.z) + maze.groudSize.y/2 -1);
-        return positionInMaze;
+        print(posO);
+        Vector2 positionInMaze = new Vector2((int)posO.x + maze.groudSize.x/2, (int)posO.z + maze.groudSize.z/2);
+        return new Vector2();
     }
 }
