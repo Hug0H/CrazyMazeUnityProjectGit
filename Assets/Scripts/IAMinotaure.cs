@@ -13,7 +13,7 @@ public class IAMinotaure : MonoBehaviour
     public MazeGen maze;
     private int[,] DIST;
     private int[,] matrice;
-    private int [] position;
+    private int[] position;
 
     private GameObject gameHub;
     //private List<Player> players;
@@ -23,7 +23,7 @@ public class IAMinotaure : MonoBehaviour
 
     int compteur;
     // Start is called before the first frame update
-    
+
     void Awake()
     {
         time = (int)Time.time;
@@ -32,15 +32,16 @@ public class IAMinotaure : MonoBehaviour
     public void Start()
     {
         GameObject gameHub = GameObject.FindGameObjectWithTag("GameHub");
-        GameHub hub =gameHub.GetComponent<GameHub>();
-        firstPlayerPos = hub.getPlayer().positionInMaze;
+        GameHub hub = gameHub.GetComponent<GameHub>();
+        //firstPlayerPos = hub.getPlayer().positionInMaze;
+        firstPlayerPos = new Vector2(3, 3);
         maze = hub.maze;
         //maze = new MazeGen();
         //maze.Start();
 
         this.matrice = maze.GetMatrice();
 
-       
+
         maze.AffichageMatrice(this.matrice);
 
         DIST = (int[,])matrice.Clone();
@@ -52,7 +53,7 @@ public class IAMinotaure : MonoBehaviour
         position = new int[2];
         position[0] = 5;
         position[1] = 5;
-        
+
     }
 
     //Initialisation de la carte des distances
@@ -119,7 +120,7 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else
                 {
-                    int valeurMin = Minimum(new int[4] { DIST[x+1,y], DIST[x,y+1], DIST[x-1,y], DIST[x,y-1] });
+                    int valeurMin = Minimum(new int[4] { DIST[x + 1, y], DIST[x, y + 1], DIST[x - 1, y], DIST[x, y - 1] });
                     //print("valeurMin : " + valeurMin);
                     if (DIST[x, y] > valeurMin)
                     {
@@ -168,14 +169,14 @@ public class IAMinotaure : MonoBehaviour
         if (DIST[position[1] + 1, position[0]] == valeurMin)
         {
             choixPossibles[compteur] = "bas";
-            compteur += 1; 
+            compteur += 1;
         }
         if (DIST[position[1], position[0] + 1] == valeurMin)
         {
             choixPossibles[compteur] = "droite";
             compteur += 1;
         }
-        if (DIST[position[1], position[0]-1] == valeurMin)
+        if (DIST[position[1], position[0] - 1] == valeurMin)
         {
             choixPossibles[compteur] = "gauche";
             compteur += 1;
@@ -185,12 +186,12 @@ public class IAMinotaure : MonoBehaviour
         {
             print("choixPossibles" +"["+i+"] = " + choixPossibles[i]);
         }*/
-        
+
         return choixPossibles;
     }
-    void IA( )
+    void IA()
     {
-       
+
         DIST = PreInitDistPlayer();
         DIST = CalculDistPlayer((int)firstPlayerPos.x, (int)firstPlayerPos.y);
 
@@ -198,45 +199,45 @@ public class IAMinotaure : MonoBehaviour
         string[] choixPossibles = MinautorePossibleMove();
         int choix = Random.Range(0, compteur);
         string result = choixPossibles[choix];
-        
+
         //print(result);
         if (result == "haut")
         {
-            
-            position[0] += 1;
-            position[1] += 0;
-            transform.Translate(0, 0, 1);
+
+            position[0] += 0;
+            position[1] -= 1;
+            transform.Translate(0, -1, 0);
         }
         else if (result == "bas")
         {
-            
-            position[0] -= 1;
-            position[1] -= 0;
-            transform.Translate(-1, 0, 0);
+
+            position[0] -= 0;
+            position[1] += 1;
+            transform.Translate(0, 1, 0);
         }
         else if (result == "droite")
         {
-           
-            position[0] += 0;
-            position[1] -= 1;
-            transform.Translate(-1, 0, 0);
+
+            position[0] += 1;
+            position[1] -= 0;
+            transform.Translate(1, 0, 0);
         }
         else if (result == "gauche")
         {
-            
-            position[0] += 0;
-            position[1] += 1;
-            transform.Translate(1, 0, 0);
+
+            position[0] -= 1;
+            position[1] += 0;
+            transform.Translate(-1, 0, 0);
         }
         print(result);
         //AffichageMatrice(DIST);
-        //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
+        print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
 
         /*if (position[1] == players.position.x && players.position.y == position[0])
         {
             print("collision");
         }*/
-        
+
     }
     IEnumerator waiter(int sec)
     {
@@ -247,22 +248,22 @@ public class IAMinotaure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         time = (int)Time.time;
         //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
 
-        
+
         if (time == tick)
         {
-            
+
             tick = time + TimerInterval;
-            
+
             IA();
-            AffichageMatrice(DIST,"light");
+            AffichageMatrice(DIST, "light");
         }
-        
-        
+
+
 
     }
 
@@ -324,7 +325,7 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else
                 {
-                    if(mat[i, j] == 999)
+                    if (mat[i, j] == 999)
                     {
                         s += "I";
                     }
@@ -338,9 +339,9 @@ public class IAMinotaure : MonoBehaviour
                         {
                             s += mat[i, j];
                         }
-                        
+
                     }
-                    
+
                 }
             }
             s += "\n";
