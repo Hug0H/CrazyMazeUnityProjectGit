@@ -52,6 +52,7 @@ public class GameHub : MonoBehaviour
     void Update()
     {
         print(getPosInMaze(Joueur));
+
     }
 
     
