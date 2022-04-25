@@ -57,7 +57,7 @@ public class GameHub : MonoBehaviour
     public Vector2 getPosInMaze(GameObject o)
     {
         Vector3 posO = o.GetComponent<Transform>().position;
-
+        //print("" + posO.x + posO.y + posO.z);
         Vector2 positionInMaze = new Vector2( Mathf.CeilToInt(posO.x) + maze.groudSize.x/2-1, Mathf.CeilToInt(posO.z) + maze.groudSize.y/2 -1);
         return positionInMaze;
     }
