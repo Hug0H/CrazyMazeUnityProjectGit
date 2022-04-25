@@ -8,7 +8,7 @@ using UnityEngine;
 public class IAMinotaure : MonoBehaviour
 {
     float time;
-    public float TimerInterval = 5f;
+    float TimerInterval = 1;
     float tick;
     public MazeGen maze;
     private int[,] DIST;
@@ -94,7 +94,7 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else if (x == xp && y == yp)
                 {
-                    DIST[x, y] = 0;
+                    DIST[y, x] = 0;
                 }
                 else
                 {
@@ -159,35 +159,44 @@ public class IAMinotaure : MonoBehaviour
     {
         string[] choixPossibles = new string[4];
         compteur = 0;
-        int valeurMin = Minimum(new int[4] { DIST[position[1] + 1, position[0]], DIST[position[1], position[0] + 1], DIST[position[1] - 1, position[0]], DIST[position[1], position[0] - 1] });
+        print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
+        int caseHaut = DIST[position[0] - 1, position[1]];
+        print("caseHaut " + caseHaut);
+        int caseBas = DIST[position[0] + 1, position[1]];
+        print("caseBas " + caseBas);
+        int caseGauche = DIST[position[0], position[1] - 1];
+        print("caseGauche " + caseGauche);
+        int caseDroite = DIST[position[0] , position[1]+1];
+        print("caseDroite " + caseDroite);
+        int valeurMin = Minimum(new int[4] { caseHaut,caseBas,caseDroite,caseGauche });
         print("ValeurMin : " + valeurMin);
-        if (DIST[position[1] - 1, position[0]] == valeurMin)
+        if (caseGauche  == valeurMin)
         {
             choixPossibles[compteur] = "gauche";
             compteur += 1;
         }
-        if (DIST[position[1] + 1, position[0]] == valeurMin)
+        if (caseDroite == valeurMin)
         {
             choixPossibles[compteur] = "droite";
             compteur += 1; 
         }
-        if (DIST[position[1], position[0] + 1] == valeurMin)
+        if (caseBas == valeurMin)
         {
             choixPossibles[compteur] = "bas";
             compteur += 1;
         }
-        if (DIST[position[1], position[0]-1] == valeurMin)
+        if (caseHaut == valeurMin)
         {
             choixPossibles[compteur] = "haut";
             compteur += 1;
         }
-
-        print("choixPossibles :");
+        AffichageMatrice(DIST,"");
+        /*print("choixPossibles :");
         
         for (int i = 0; i < choixPossibles.Length; i++)
         {
             print("choixPossibles" + "[" + i + "] = " + choixPossibles[i]);
-        }
+        }*/
 
         return choixPossibles;
     }
@@ -195,7 +204,7 @@ public class IAMinotaure : MonoBehaviour
     {
        
         DIST = PreInitDistPlayer();
-        DIST = CalculDistPlayer((int)firstPlayerPos.x, (int)firstPlayerPos.y);
+        DIST = CalculDistPlayer((int)firstPlayerPos.y, (int)firstPlayerPos.x);
 
         //deplacement Minautore
         string[] choixPossibles = MinautorePossibleMove();
@@ -211,6 +220,7 @@ public class IAMinotaure : MonoBehaviour
         {
             
             transform.Translate(1, 0, 0);
+            
         }
         else if (result == "droite")
         {
@@ -226,12 +236,12 @@ public class IAMinotaure : MonoBehaviour
         position[1] = (int)hub.getPosInMaze(gameObject).y;
         print(result);
         //AffichageMatrice(DIST);
-        //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
+        //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[1]);
 
-        /*if (position[1] == players.position.x && players.position.y == position[0])
+        if (position[1] == firstPlayerPos.y && firstPlayerPos.x == position[0])
         {
             print("collision");
-        }*/
+        }
         
     }
     IEnumerator waiter(int sec)
@@ -256,8 +266,7 @@ public class IAMinotaure : MonoBehaviour
             tick = time + TimerInterval;
             
             IA();
-            
-            AffichageMatrice(DIST,"light");
+            //AffichageMatrice(DIST,"light");
             
         }
         
@@ -280,7 +289,7 @@ public class IAMinotaure : MonoBehaviour
         }
         return mimimum;
     }
-   
+
 
     private void AffichageMatrice(int[,] mat, string mode)
     {
@@ -305,30 +314,29 @@ public class IAMinotaure : MonoBehaviour
 
                 //else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
 
-                else if (i ==  firstPlayerPos.x && j == firstPlayerPos.y)
+                else if (i == firstPlayerPos.x && j == firstPlayerPos.y)
 
                 {
                     s += " P ";
                 }
                 else
                 {
-                    if(mat[i, j] == 999)
+                    if (mode == "light")
                     {
-                        s += "I";
-                    }
-                    else
-                    {
-                        if (mode == "light")
+                        if (mat[i, j] == 999)
                         {
-                            s += 0;
+                            s += "I";
                         }
                         else
                         {
-                            s += mat[i, j];
+                            s += 0;
                         }
-                        
                     }
-                    
+                    else
+                    {
+                        s += mat[i, j];
+                    }
+
                 }
             }
             s += "\n";
@@ -336,5 +344,6 @@ public class IAMinotaure : MonoBehaviour
         print(s);
 
     }
+
 
 }
