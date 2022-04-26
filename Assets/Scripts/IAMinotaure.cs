@@ -316,12 +316,12 @@ public class IAMinotaure : MonoBehaviour
 
                 //else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
 
-                else if (i == FirstPlayerPos.x && j == FirstPlayerPos.y)
+                else if (i == (int)FirstPlayerPos.x && j == (int)FirstPlayerPos.y)
 
                 {
                     s += " P ";
                 }
-                else if (i == SecondPlayerPos.x && j == SecondPlayerPos.y)
+                else if (i == (int)SecondPlayerPos.x && j == (int)SecondPlayerPos.y)
 
                 {
                     s += " P ";
