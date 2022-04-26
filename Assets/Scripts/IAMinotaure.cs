@@ -18,7 +18,8 @@ public class IAMinotaure : MonoBehaviour
 
     private GameObject gameHub;
     //private List<Player> players;
-    private Vector2 firstPlayerPos;
+    private Vector2 FirstPlayerPos;
+    private Vector2 SecondPlayerPos;
     private int tailleX;
     private int tailleY;
 
@@ -33,7 +34,7 @@ public class IAMinotaure : MonoBehaviour
     public void Start()
     {
         GameObject gameHub = GameObject.FindGameObjectWithTag("GameHub");
-         hub =gameHub.GetComponent<GameHub>();
+        hub =gameHub.GetComponent<GameHub>();
         
         maze = hub.maze;
         //maze = new MazeGen();
@@ -70,7 +71,7 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else
                 {
-                    DIST[x, y] = 30;
+                    DIST[x, y] = 998;
                 }
             }
         }
@@ -98,7 +99,7 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else
                 {
-                    DIST[x, y] = 30;
+                    DIST[x, y] = 998;
                 }
             }
         }
@@ -148,7 +149,7 @@ public class IAMinotaure : MonoBehaviour
         return DIST;*/
         InitDistPlayer(xp, yp);
         // Parcours de calcules des distances
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 100; i++)
         {
             UpdateDistPlayer();
         }
@@ -204,8 +205,8 @@ public class IAMinotaure : MonoBehaviour
     {
        
         DIST = PreInitDistPlayer();
-        DIST = CalculDistPlayer((int)firstPlayerPos.y, (int)firstPlayerPos.x);
-
+        DIST = CalculDistPlayer((int)FirstPlayerPos.y, (int)FirstPlayerPos.x);
+        DIST = CalculDistPlayer((int)SecondPlayerPos.y, (int)SecondPlayerPos.x);
         //deplacement Minautore
         string[] choixPossibles = MinautorePossibleMove();
         int choix = Random.Range(0, compteur);
@@ -238,7 +239,7 @@ public class IAMinotaure : MonoBehaviour
         //AffichageMatrice(DIST);
         //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[1]);
 
-        if (position[1] == firstPlayerPos.y && firstPlayerPos.x == position[0])
+        if ((position[1] == FirstPlayerPos.y && FirstPlayerPos.x == position[0]) || (position[1] == SecondPlayerPos.y && SecondPlayerPos.x == position[0]))
         {
             print("collision");
         }
@@ -253,8 +254,9 @@ public class IAMinotaure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        firstPlayerPos = hub.getPosInMaze(hub.getPlayer());
+        FirstPlayerPos = hub.getPosInMaze(hub.getPlayer1());
 
+        SecondPlayerPos = hub.getPosInMaze(hub.getPlayer2());
         time = (int)Time.time;
         //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
@@ -314,7 +316,12 @@ public class IAMinotaure : MonoBehaviour
 
                 //else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
 
-                else if (i == firstPlayerPos.x && j == firstPlayerPos.y)
+                else if (i == FirstPlayerPos.x && j == FirstPlayerPos.y)
+
+                {
+                    s += " P ";
+                }
+                else if (i == SecondPlayerPos.x && j == SecondPlayerPos.y)
 
                 {
                     s += " P ";

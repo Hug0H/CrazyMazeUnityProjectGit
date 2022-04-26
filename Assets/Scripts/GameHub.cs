@@ -8,8 +8,11 @@ public class GameHub : MonoBehaviour
     public MazeGen maze;
     private int[,] mazeMatrice;
    
-    public GameObject prefabJoueur;
-    private GameObject Joueur;
+    public GameObject prefabJoueur1;
+    private GameObject Joueur1;
+
+    public GameObject prefabJoueur2;
+    private GameObject Joueur2;
 
     public GameObject prefabMinos;
     private GameObject minos;
@@ -23,19 +26,27 @@ public class GameHub : MonoBehaviour
         spawnCaracters();
         
     }
-    //Accesseur du player
-    public GameObject getPlayer()
+    //Accesseur du player1
+    public GameObject getPlayer1()
     {
-        return Joueur;
+        return Joueur1;
     }
-   
+
+    //Accesseur du player1
+    public GameObject getPlayer2()
+    {
+        return Joueur2;
+    }
+
     private void spawnCaracters()
     {
-        //Vector3 spawnPlayer = getAleaSpawn();
-        Vector3 spawnPlayer = new Vector3(1,1,0);
+        //Vector3 spawnPlayer1 = getAleaSpawn();
+        Vector3 spawnPlayer1 = new Vector3(1,1,0);
+        Vector3 spawnPlayer2 = getAleaSpawn();
         Vector3 spawnMinos = getAleaSpawn();
         
-        Joueur=Instantiate(prefabJoueur, spawnPlayer , Quaternion.identity);
+        Joueur1=Instantiate(prefabJoueur1, spawnPlayer1 , Quaternion.identity);
+        Joueur2=Instantiate(prefabJoueur2, spawnPlayer2, Quaternion.identity);
         minos =Instantiate(prefabMinos, spawnMinos, Quaternion.identity);
     }
     

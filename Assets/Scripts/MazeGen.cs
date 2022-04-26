@@ -86,7 +86,7 @@ public class MazeGen : MonoBehaviour
         {
             for (int j = 0; j < tailleY; j++)
             {
-                if (i == 0 || i == tailleX - 1 || j == 0 || j == tailleY - 1)
+                if (i == 0 || i == tailleX-1 || j == 0 || j == tailleY-1 )
                 {
                     matrice[i, j] = 1;
 
