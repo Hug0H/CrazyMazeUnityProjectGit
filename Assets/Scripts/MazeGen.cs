@@ -71,8 +71,8 @@ public class MazeGen : MonoBehaviour
 
         //Initialisation de la matrice rempli
         matrice = new int[(int)groudSize.x, (int)groudSize.y];
-        int tailleX = matrice.GetLength(0);
-        int tailleY = matrice.GetLength(1);
+        int tailleY = matrice.GetLength(0);//Ligne
+        int tailleX = matrice.GetLength(1);//colonne
         for (int i = 0; i < tailleX; i++)
         {
             for (int j = 0; j < tailleY; j++)
@@ -104,8 +104,8 @@ public class MazeGen : MonoBehaviour
         //matrice des visites
         matriceVisite = new int[(int)groudSize.x / sizeCellule, (int)groudSize.y / sizeCellule];
         //Initialisation de la matrice booléenne
-        tailleVisiteX = matriceVisite.GetLength(0);
-        tailleVisiteY = matriceVisite.GetLength(1);
+        tailleVisiteY = matriceVisite.GetLength(0);//ligne
+        tailleVisiteX = matriceVisite.GetLength(1);//colonne
         for (int i = 0; i < tailleVisiteX; i++)
         {
             for (int j = 0; j < tailleVisiteY; j++)
