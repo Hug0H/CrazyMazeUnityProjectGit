@@ -4,16 +4,21 @@ using System.Linq;
 using UnityEngine;
 
 //Cette classe appliquée sur le minotautorre prend en paramettre la position du joueur dans la matrice, ainsi que la matyrice du labyrynthe 
-
+[RequireComponent(typeof(AudioSource))]
 public class IAMinotaure : MonoBehaviour
 {
     float time;
     float TimerInterval = 1;
     float tick;
+
+    float time2;
+    float TimerInterval2 = 10;
+    float tick2;
+
     public MazeGen maze;
     private int[,] DIST;
     private int[,] matrice;
-    private int [] position;
+    private int[] position;
     private GameHub hub;
 
     private GameObject gameHub;
@@ -25,24 +30,27 @@ public class IAMinotaure : MonoBehaviour
 
     int compteur;
     // Start is called before the first frame update
-    
+    public AudioClip criMino;
+    AudioSource cri;
+    float intensiteCri = 0.1f;
     void Awake()
     {
-        time = (int)Time.time;
         tick = TimerInterval;
+        tick2 = TimerInterval2;
+        cri = GetComponent<AudioSource>();
     }
     public void Start()
     {
         GameObject gameHub = GameObject.FindGameObjectWithTag("GameHub");
-        hub =gameHub.GetComponent<GameHub>();
-        
+        hub = gameHub.GetComponent<GameHub>();
+
         maze = hub.maze;
         //maze = new MazeGen();
         //maze.Start();
 
         this.matrice = maze.GetMatrice();
 
-       
+
         maze.AffichageMatrice(this.matrice);
 
         DIST = (int[,])matrice.Clone();
@@ -54,7 +62,7 @@ public class IAMinotaure : MonoBehaviour
         position = new int[2];
         position[0] = (int)hub.getPosInMaze(gameObject).x;
         position[1] = (int)hub.getPosInMaze(gameObject).y;
-        
+
     }
 
     //Initialisation de la carte des distances
@@ -121,7 +129,7 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else
                 {
-                    int valeurMin = Minimum(new int[4] { DIST[x+1,y], DIST[x,y+1], DIST[x-1,y], DIST[x,y-1] });
+                    int valeurMin = Minimum(new int[4] { DIST[x + 1, y], DIST[x, y + 1], DIST[x - 1, y], DIST[x, y - 1] });
                     //print("valeurMin : " + valeurMin);
                     if (DIST[x, y] > valeurMin)
                     {
@@ -167,11 +175,11 @@ public class IAMinotaure : MonoBehaviour
         print("caseBas " + caseBas);
         int caseGauche = DIST[position[0], position[1] - 1];
         print("caseGauche " + caseGauche);
-        int caseDroite = DIST[position[0] , position[1]+1];
+        int caseDroite = DIST[position[0], position[1] + 1];
         print("caseDroite " + caseDroite);
-        int valeurMin = Minimum(new int[4] { caseHaut,caseBas,caseDroite,caseGauche });
+        int valeurMin = Minimum(new int[4] { caseHaut, caseBas, caseDroite, caseGauche });
         print("ValeurMin : " + valeurMin);
-        if (caseGauche  == valeurMin)
+        if (caseGauche == valeurMin)
         {
             choixPossibles[compteur] = "gauche";
             compteur += 1;
@@ -179,7 +187,7 @@ public class IAMinotaure : MonoBehaviour
         if (caseDroite == valeurMin)
         {
             choixPossibles[compteur] = "droite";
-            compteur += 1; 
+            compteur += 1;
         }
         if (caseBas == valeurMin)
         {
@@ -191,7 +199,7 @@ public class IAMinotaure : MonoBehaviour
             choixPossibles[compteur] = "haut";
             compteur += 1;
         }
-        AffichageMatrice(DIST,"");
+        AffichageMatrice(DIST, "");
         /*print("choixPossibles :");
         
         for (int i = 0; i < choixPossibles.Length; i++)
@@ -201,9 +209,9 @@ public class IAMinotaure : MonoBehaviour
 
         return choixPossibles;
     }
-    void IA( )
+    void IA()
     {
-       
+
         DIST = PreInitDistPlayer();
         DIST = CalculDistPlayer((int)FirstPlayerPos.y, (int)FirstPlayerPos.x);
         DIST = CalculDistPlayer((int)SecondPlayerPos.y, (int)SecondPlayerPos.x);
@@ -211,7 +219,7 @@ public class IAMinotaure : MonoBehaviour
         string[] choixPossibles = MinautorePossibleMove();
         int choix = Random.Range(0, compteur);
         string result = choixPossibles[choix];
-        
+
         //print(result);
         if (result == "haut")
         {
@@ -219,18 +227,18 @@ public class IAMinotaure : MonoBehaviour
         }
         else if (result == "bas")
         {
-            
+
             transform.Translate(1, 0, 0);
-            
+
         }
         else if (result == "droite")
         {
-           
+
             transform.Translate(0, 0, 1);
         }
         else if (result == "gauche")
         {
-            
+
             transform.Translate(0, 0, -1);
         }
         position[0] = (int)hub.getPosInMaze(gameObject).x;
@@ -243,7 +251,7 @@ public class IAMinotaure : MonoBehaviour
         {
             print("collision");
         }
-        
+
     }
     IEnumerator waiter(int sec)
     {
@@ -261,18 +269,26 @@ public class IAMinotaure : MonoBehaviour
         //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
 
-        
+
         if (time == tick)
         {
-            
+
             tick = time + TimerInterval;
-            
+
             IA();
             //AffichageMatrice(DIST,"light");
-            
+
         }
-        
-        
+
+        time2 = (int)Time.time;
+        //Gestion du cri du mino
+        if (time2 == tick2)
+        {
+            tick2 = time2 + TimerInterval2;
+            print(TimerInterval);
+            cri.PlayOneShot(criMino, intensiteCri);
+        }
+
 
     }
 
