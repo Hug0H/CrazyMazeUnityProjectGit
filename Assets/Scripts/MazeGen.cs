@@ -125,6 +125,7 @@ public class MazeGen : MonoBehaviour
         matriceVisite[currentI, currentJ] = 1;
         pile.Push((currentI, currentJ));
         GenLab();
+        GenererMaze();
     }
     private void GenererMaze()
     {
@@ -314,6 +315,6 @@ public class MazeGen : MonoBehaviour
             }
             GenLab();
         }
-        GenererMaze();
+        
     }
 }
