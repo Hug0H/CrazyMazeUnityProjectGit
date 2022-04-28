@@ -315,5 +315,6 @@ public class MazeGen : MonoBehaviour
             }
             GenLab();
         }
+        
     }
 }
