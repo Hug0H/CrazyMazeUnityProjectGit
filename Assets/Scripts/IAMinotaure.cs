@@ -33,21 +33,25 @@ public class IAMinotaure : MonoBehaviour
     public AudioClip criMino;
     AudioSource cri;
     float intensiteCri = 0.1f;
+
+    //Musique d'ambiance pour accélere le pitch
+    AudioSource musiqueAmbiance;
     void Awake()
     {
         tick = TimerInterval;
         tick2 = TimerInterval2;
-        cri = GetComponent<AudioSource>();
+        
     }
     public void Start()
     {
+        cri = GetComponent<AudioSource>();
         GameObject gameHub = GameObject.FindGameObjectWithTag("GameHub");
         hub = gameHub.GetComponent<GameHub>();
+        musiqueAmbiance = hub.GetComponent<AudioSource>();
 
-        maze = hub.maze;
         //maze = new MazeGen();
         //maze.Start();
-
+        maze = hub.maze;
         this.matrice = maze.GetMatrice();
 
 
@@ -274,9 +278,9 @@ public class IAMinotaure : MonoBehaviour
         {
 
             tick = time + TimerInterval;
-
             IA();
             //AffichageMatrice(DIST,"light");
+           
 
         }
 
@@ -284,12 +288,49 @@ public class IAMinotaure : MonoBehaviour
         //Gestion du cri du mino
         if (time2 == tick2)
         {
+
             tick2 = time2 + TimerInterval2;
-            print(TimerInterval);
-            cri.PlayOneShot(criMino, intensiteCri);
+            if (DIST[position[0], position[1]] > 50)
+            {
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 40)
+            {
+                intensiteCri = 0.3f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 30)
+            {
+                intensiteCri = 0.4f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 20)
+            {
+                intensiteCri = 0.5f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 10)
+            {
+                intensiteCri = 0.7f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 5)
+            {
+                intensiteCri = 0.8f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] <= 5)
+            {
+                intensiteCri = 1f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+
+            //AffichageMatrice(DIST,"light");
+            if (DIST[position[0], position[1]] < 20)//SI le minautore approche on modifie le pitch
+            {
+                musiqueAmbiance.pitch *= 1.1f;
+            }
         }
-
-
     }
 
 

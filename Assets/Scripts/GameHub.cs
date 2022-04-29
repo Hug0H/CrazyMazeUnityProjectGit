@@ -33,10 +33,12 @@ public class GameHub : MonoBehaviour
         Camera1 = Instantiate(prefabCamera1, new Vector3(0, 0, 0), Quaternion.identity);
         Camera1.AddComponent<CamFollowSmooth>();
         Camera1.GetComponent<CamFollowSmooth>().setTarget(Joueur1.transform);
+        Camera1.AddComponent<AudioListener>();
 
         Camera2 = Instantiate(prefabCamera2, new Vector3(0, 0, 0), Quaternion.identity);
         Camera2.AddComponent<CamFollowSmooth>();
         Camera2.GetComponent<CamFollowSmooth>().setTarget(Joueur2.transform);
+        //Camera2.AddComponent<AudioListener>();
     }
     //Accesseur du player1
     public GameObject getPlayer1()
