@@ -23,6 +23,8 @@ public class IAMinotaure : MonoBehaviour
 
     private GameObject gameHub;
     //private List<Player> players;
+    private GameObject FirstPlayer;
+    private GameObject SecondPlayer;
     private Vector2 FirstPlayerPos;
     private Vector2 SecondPlayerPos;
     private int tailleX;
@@ -251,9 +253,16 @@ public class IAMinotaure : MonoBehaviour
         //AffichageMatrice(DIST);
         //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[1]);
 
-        if ((position[1] == FirstPlayerPos.y && FirstPlayerPos.x == position[0]) || (position[1] == SecondPlayerPos.y && SecondPlayerPos.x == position[0]))
+        if (position[1] == FirstPlayerPos.y && FirstPlayerPos.x == position[0])
         {
-            print("collision");
+            print("collision vec le Player1");
+            FirstPlayer.GetComponent<Player>().SetLives(FirstPlayer.GetComponent<Player>().GetLives()-1);
+            
+        }
+        if (position[1] == SecondPlayerPos.y && SecondPlayerPos.x == position[0])
+        {
+            print("collision vec le Player2");
+            SecondPlayer.GetComponent<Player>().SetLives(SecondPlayer.GetComponent<Player>().GetLives() - 1);
         }
 
     }
@@ -266,9 +275,11 @@ public class IAMinotaure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FirstPlayerPos = hub.getPosInMaze(hub.getPlayer1());
+        FirstPlayer = hub.getPlayer1();
+        FirstPlayerPos = hub.getPosInMaze(FirstPlayer);
 
-        SecondPlayerPos = hub.getPosInMaze(hub.getPlayer2());
+        SecondPlayer = hub.getPlayer2();
+        SecondPlayerPos = hub.getPosInMaze(SecondPlayer);
         time = (int)Time.time;
         //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
@@ -290,6 +301,11 @@ public class IAMinotaure : MonoBehaviour
         {
 
             tick2 = time2 + TimerInterval2;
+            //AffichageMatrice(DIST,"light");
+            if (DIST[position[0], position[1]] < 20)//SI le minautore approche on modifie le pitch
+            {
+                musiqueAmbiance.pitch *= 1.1f;
+            }
             if (DIST[position[0], position[1]] > 50)
             {
                 cri.PlayOneShot(criMino, intensiteCri);
@@ -323,12 +339,6 @@ public class IAMinotaure : MonoBehaviour
             {
                 intensiteCri = 1f;
                 cri.PlayOneShot(criMino, intensiteCri);
-            }
-
-            //AffichageMatrice(DIST,"light");
-            if (DIST[position[0], position[1]] < 20)//SI le minautore approche on modifie le pitch
-            {
-                musiqueAmbiance.pitch *= 1.1f;
             }
         }
     }
