@@ -60,7 +60,13 @@ public class GameHub : MonoBehaviour
         Vector3 spawnMinos = getAleaSpawn();
 
         Joueur1 = Instantiate(prefabJoueur1, spawnPlayer1, Quaternion.identity);
+        Joueur1.GetComponent<Player>().SetPosition(Joueur1.transform.position);
+
+
         Joueur2 = Instantiate(prefabJoueur2, spawnPlayer2, Quaternion.identity);
+        Joueur2.GetComponent<Player>().SetPosition(Joueur2.transform.position);
+
+
         minos = Instantiate(prefabMinos, spawnMinos, Quaternion.identity);
     }
 
@@ -76,6 +82,7 @@ public class GameHub : MonoBehaviour
     void Update()
     {
 
+        //print(Joueur1.GetComponent<Player>().GetPosition());
     }
 
 

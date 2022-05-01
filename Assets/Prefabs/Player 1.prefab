@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8865239043480340642}
   - component: {fileID: 8865239043480340643}
   - component: {fileID: 8865239043480340644}
-  - component: {fileID: 8865239043480340645}
+  - component: {fileID: 6914019769377414429}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -114,7 +114,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8865239043480340645
+--- !u!114 &6914019769377414429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,4 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba7401c63f76fc408c01716f2a5444c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionInMaze: {x: 0, y: 0}
+  positionInMaze: {x: 0, y: 0, z: 0}
+  lives: 3
+  MaxLives: 3
+  prefabLives: {fileID: 1471127867577689227, guid: 603c29ef70507a8419d49583441b3f8b, type: 3}

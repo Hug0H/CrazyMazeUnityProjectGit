@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SDD.Events;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -13,23 +14,30 @@ public class Player : MonoBehaviour
     float m_RotationSpeed;
 
 
-    public Vector2 positionInMaze;
+    public Vector3 positionInMaze;
 
     private int lives;
+    private int MaxLives = 3;
+    public static Player instance;
     Rigidbody m_Rigidbody;
+
+    public GameObject prefabLives;
+    private GameObject Lives;
+
     private void Awake()
     {
+        instance = this;
         m_Rigidbody = GetComponent<Rigidbody>();
         m_RotationSpeed = 120;
         m_TranslationSpeed = 20;
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        lives = 3;
-        print(lives);
-       
+        lives = MaxLives;
+        Lives = Instantiate(prefabLives, new Vector3(0, 0, 0), Quaternion.identity);
     }
     void Update()
     {
@@ -54,10 +62,18 @@ public class Player : MonoBehaviour
         Quaternion qOrientSlightlyUpright = Quaternion.Slerp(transform.rotation, qRotUpright * transform.rotation, Time.fixedDeltaTime * 4);
         m_Rigidbody.MoveRotation(qOrientSlightlyUpright);
 
-    }
-    public void SetPosition(float x, float y)
-    {
 
+
+
+        this.transform.position = positionInMaze;
+    }
+    public void SetPosition(Vector3 vec)
+    {
+        positionInMaze = vec;
+    }
+    public Vector3 GetPosition()
+    {
+        return positionInMaze;
     }
     public int GetLives()
     {
@@ -66,11 +82,12 @@ public class Player : MonoBehaviour
     public void SetLives(int newLives)
     {
         lives=newLives;
+        print("Lives :" + lives);
     }
     public void setPosInMaze(float halfGround)
     {
         Vector3 posPlayer = gameObject.GetComponent<Transform>().position;
-        positionInMaze= new Vector2((int)posPlayer.x + halfGround, (int)posPlayer.z + halfGround);
+        positionInMaze= new Vector3((int)posPlayer.x + halfGround,0, (int)posPlayer.z + halfGround);
     }
    
 }
