@@ -97,7 +97,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8865239043480340644
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -126,9 +126,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba7401c63f76fc408c01716f2a5444c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< Updated upstream
   positionInMaze: {x: 0, y: 0, z: 0}
   prefabLives: {fileID: 1471127867577689227, guid: ea9960bd1ec936741b256e5f2a48e254, type: 3}
-=======
-  positionInMaze: {x: 0, y: 0}
->>>>>>> Stashed changes

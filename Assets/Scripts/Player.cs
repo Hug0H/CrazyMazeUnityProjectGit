@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     float m_RotationSpeed;
 
 
-<<<<<<< Updated upstream
     public Vector3 positionInMaze;
 
     private int lives;
@@ -33,17 +32,6 @@ public class Player : MonoBehaviour
         m_RotationSpeed = 120;
         m_TranslationSpeed = 20;
         vitesse = 0.2f;
-=======
-    public Vector2 positionInMaze;
-
-    private int lives;
-    Rigidbody m_Rigidbody;
-    private void Awake()
-    {
-        m_Rigidbody = GetComponent<Rigidbody>();
-        m_RotationSpeed = 120;
-        m_TranslationSpeed = 20;
->>>>>>> Stashed changes
     }
 
     // Start is called before the first frame update
@@ -58,9 +46,6 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {//Dynamique
-<<<<<<< Updated upstream
-
-=======
 
         float vInput = Input.GetAxis("Vertical"); // entre -1 et 1
         float hInput = Input.GetAxisRaw("Horizontal"); // entre -1 et 1
@@ -81,7 +66,6 @@ public class Player : MonoBehaviour
     }
     public void SetPosition(float x, float y)
     {
->>>>>>> Stashed changes
 
         float vInput = Input.GetAxis("Vertical"); // entre -1 et 1
         float hInput = Input.GetAxisRaw("Horizontal"); // entre -1 et 1
@@ -125,15 +109,6 @@ public class Player : MonoBehaviour
     public Vector3 GetPosition()
     {
         return positionInMaze;
-    }
-    public int GetLives()
-    {
-        return lives;
-    }
-    public void SetLives(int newLives)
-    {
-        lives=newLives;
-        print("Lives :" + lives);
     }
     public int GetLives()
     {
