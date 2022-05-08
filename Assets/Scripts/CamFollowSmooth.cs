@@ -15,7 +15,7 @@ public class CamFollowSmooth : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Vector3 cameraPosition = target.position + new Vector3(3,3,3);
+        Vector3 cameraPosition = target.position + new Vector3(5,5,5);
         Vector3 smoothPosition = Vector3.Lerp(transform.position, cameraPosition, smooth);
         transform.position = smoothPosition;
         transform.LookAt(target);

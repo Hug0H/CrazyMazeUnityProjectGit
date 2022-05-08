@@ -46,44 +46,50 @@ public class Player : MonoBehaviour
         
     }
     private void FixedUpdate()
-    {//Dynamique
-
-        float vInput = Input.GetAxis("Vertical"); // entre -1 et 1
-        float hInput = Input.GetAxisRaw("Horizontal"); // entre -1 et 1
-
-        // MODE VELOCITY
-        Vector3 targetVelocity = vInput * m_TranslationSpeed * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-        Vector3 velocityChange = targetVelocity - m_Rigidbody.velocity;
-        m_Rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
-
-        Vector3 targetAngularVelocity = hInput * m_RotationSpeed * transform.up;
-        Vector3 angularVelocityChange = targetAngularVelocity - m_Rigidbody.angularVelocity;
-        m_Rigidbody.AddTorque(angularVelocityChange, ForceMode.VelocityChange);
-
-        Quaternion qRotUpright = Quaternion.FromToRotation(transform.up, Vector3.up);
-        Quaternion qOrientSlightlyUpright = Quaternion.Slerp(transform.rotation, qRotUpright * transform.rotation, Time.fixedDeltaTime * 4);
-        m_Rigidbody.MoveRotation(qOrientSlightlyUpright);
-
-    }
-    public void SetPosition(float x, float y)
     {
+        //Par TAG
+        if (this.gameObject.CompareTag("player1"))
+        {
+            //Dynamique
 
-        float vInput = Input.GetAxis("Vertical"); // entre -1 et 1
-        float hInput = Input.GetAxisRaw("Horizontal"); // entre -1 et 1
-        // MODE VELOCITY
-        Vector3 targetVelocity = vInput * m_TranslationSpeed * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-        Vector3 velocityChange = targetVelocity - m_Rigidbody.velocity;
-        m_Rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+            float vInput = Input.GetAxis("P1_Vertical"); // entre -1 et 1
+            float hInput = Input.GetAxisRaw("P1_Horizontal"); // entre -1 et 1
 
-        Vector3 targetAngularVelocity = hInput * m_RotationSpeed * transform.up;
-        Vector3 angularVelocityChange = targetAngularVelocity - m_Rigidbody.angularVelocity;
-        m_Rigidbody.AddTorque(angularVelocityChange, ForceMode.VelocityChange);
+            // MODE VELOCITY
+            Vector3 targetVelocity = vInput * m_TranslationSpeed * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            Vector3 velocityChange = targetVelocity - m_Rigidbody.velocity;
+            m_Rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
 
-        Quaternion qRotUpright = Quaternion.FromToRotation(transform.up, Vector3.up);
-        Quaternion qOrientSlightlyUpright = Quaternion.Slerp(transform.rotation, qRotUpright * transform.rotation, Time.fixedDeltaTime * 4);
-        m_Rigidbody.MoveRotation(qOrientSlightlyUpright);
+            Vector3 targetAngularVelocity = hInput * m_RotationSpeed * transform.up;
+            Vector3 angularVelocityChange = targetAngularVelocity - m_Rigidbody.angularVelocity;
+            m_Rigidbody.AddTorque(angularVelocityChange, ForceMode.VelocityChange);
 
-       /* if (Input.GetKeyDown(KeyCode.LeftArrow))
+            Quaternion qRotUpright = Quaternion.FromToRotation(transform.up, Vector3.up);
+            Quaternion qOrientSlightlyUpright = Quaternion.Slerp(transform.rotation, qRotUpright * transform.rotation, Time.fixedDeltaTime * 4);
+            m_Rigidbody.MoveRotation(qOrientSlightlyUpright);
+
+        }
+        else if (this.gameObject.CompareTag("player2"))
+        {
+            //Dynamique
+
+            float vInput = Input.GetAxis("P2_Vertical"); // entre -1 et 1
+            float hInput = Input.GetAxisRaw("P2_Horizontal"); // entre -1 et 1
+
+            // MODE VELOCITY
+            Vector3 targetVelocity = vInput * m_TranslationSpeed * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            Vector3 velocityChange = targetVelocity - m_Rigidbody.velocity;
+            m_Rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+
+            Vector3 targetAngularVelocity = hInput * m_RotationSpeed * transform.up;
+            Vector3 angularVelocityChange = targetAngularVelocity - m_Rigidbody.angularVelocity;
+            m_Rigidbody.AddTorque(angularVelocityChange, ForceMode.VelocityChange);
+
+            Quaternion qRotUpright = Quaternion.FromToRotation(transform.up, Vector3.up);
+            Quaternion qOrientSlightlyUpright = Quaternion.Slerp(transform.rotation, qRotUpright * transform.rotation, Time.fixedDeltaTime * 4);
+            m_Rigidbody.MoveRotation(qOrientSlightlyUpright);
+        }
+        /* if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             this.transform.Translate(new Vector3(-vitesse, 0, 0));
         }
@@ -99,7 +105,6 @@ public class Player : MonoBehaviour
         {
             this.transform.Translate(new Vector3(0, 0, -vitesse));
         }*/
-
     }
     public void SetPosition(Vector3 vec)
     {

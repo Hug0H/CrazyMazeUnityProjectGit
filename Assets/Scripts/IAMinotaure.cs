@@ -21,7 +21,6 @@ public class IAMinotaure : MonoBehaviour
     private int[] position;
     private GameHub hub;
 
-    private GameObject gameHub;
     //private List<Player> players;
     private GameObject FirstPlayer;
     private GameObject SecondPlayer;
@@ -254,6 +253,8 @@ public class IAMinotaure : MonoBehaviour
         //AffichageMatrice(DIST);
         //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[1]);
 
+       /* print("Vie j1 : " + FirstPlayer.GetComponent<Player>().GetLives());
+        print("Vie j2 : " + SecondPlayer.GetComponent<Player>().GetLives());*/
         if (position[1] == FirstPlayerPos.y && FirstPlayerPos.x == position[0])
         {
             print("collision vec le Player1");
@@ -309,6 +310,10 @@ public class IAMinotaure : MonoBehaviour
             if (DIST[position[0], position[1]] < 20)//SI le minautore approche on modifie le pitch
             {
                 musiqueAmbiance.pitch *= 1.1f;
+            }
+            else
+            {
+                musiqueAmbiance.pitch = 1.0f;
             }
             if (DIST[position[0], position[1]] > 50)
             {
