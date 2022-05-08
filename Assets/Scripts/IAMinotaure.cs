@@ -57,7 +57,7 @@ public class IAMinotaure : MonoBehaviour
         this.matrice = maze.GetMatrice();
 
 
-        maze.AffichageMatrice(this.matrice);
+        //maze.AffichageMatrice(this.matrice);
 
         DIST = (int[,])matrice.Clone();
 
@@ -174,15 +174,15 @@ public class IAMinotaure : MonoBehaviour
     {
         string[] choixPossibles = new string[4];
         compteur = 0;
-        print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
+        //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
         int caseHaut = DIST[position[0] - 1, position[1]];
-        print("caseHaut " + caseHaut);
+        //print("caseHaut " + caseHaut);
         int caseBas = DIST[position[0] + 1, position[1]];
-        print("caseBas " + caseBas);
+        //print("caseBas " + caseBas);
         int caseGauche = DIST[position[0], position[1] - 1];
-        print("caseGauche " + caseGauche);
+        //print("caseGauche " + caseGauche);
         int caseDroite = DIST[position[0], position[1] + 1];
-        print("caseDroite " + caseDroite);
+        //print("caseDroite " + caseDroite);
         int valeurMin = Minimum(new int[4] { caseHaut, caseBas, caseDroite, caseGauche });
         print("ValeurMin : " + valeurMin);
         if (caseGauche == valeurMin)
@@ -205,7 +205,7 @@ public class IAMinotaure : MonoBehaviour
             choixPossibles[compteur] = "haut";
             compteur += 1;
         }
-        AffichageMatrice(DIST, "");
+        //AffichageMatrice(DIST, "");
         /*print("choixPossibles :");
         
         for (int i = 0; i < choixPossibles.Length; i++)
@@ -249,7 +249,7 @@ public class IAMinotaure : MonoBehaviour
         }
         position[0] = (int)hub.getPosInMaze(gameObject).x;
         position[1] = (int)hub.getPosInMaze(gameObject).y;
-        print(result);
+        //print(result);
         //AffichageMatrice(DIST);
         //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[1]);
 

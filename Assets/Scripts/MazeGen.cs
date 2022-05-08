@@ -114,7 +114,7 @@ public class MazeGen : MonoBehaviour
             }
         }
         //print("--------------------------------------------------------------------------------");
-        AffichageMatrice(matriceVisite);
+        //AffichageMatrice(matriceVisite);
 
         //On suit la page wikipedia https://fr.wikipedia.org/wiki/Modélisation_mathématique_d%27un_labyrinthe
         //On choisit arbitrairement une cellule, on stocke la position en cours et on la marque comme visitée (vrai).

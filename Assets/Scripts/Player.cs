@@ -24,13 +24,14 @@ public class Player : MonoBehaviour
     public GameObject prefabLives;
     private GameObject Lives;
 
+    float vitesse;
     private void Awake()
     {
         instance = this;
         m_Rigidbody = GetComponent<Rigidbody>();
         m_RotationSpeed = 120;
         m_TranslationSpeed = 20;
-
+        vitesse = 0.2f;
     }
 
     // Start is called before the first frame update
@@ -46,9 +47,9 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {//Dynamique
 
+
         float vInput = Input.GetAxis("Vertical"); // entre -1 et 1
         float hInput = Input.GetAxisRaw("Horizontal"); // entre -1 et 1
-
         // MODE VELOCITY
         Vector3 targetVelocity = vInput * m_TranslationSpeed * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
         Vector3 velocityChange = targetVelocity - m_Rigidbody.velocity;
@@ -62,14 +63,29 @@ public class Player : MonoBehaviour
         Quaternion qOrientSlightlyUpright = Quaternion.Slerp(transform.rotation, qRotUpright * transform.rotation, Time.fixedDeltaTime * 4);
         m_Rigidbody.MoveRotation(qOrientSlightlyUpright);
 
+       /* if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            this.transform.Translate(new Vector3(-vitesse, 0, 0));
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            this.transform.Translate(new Vector3(vitesse, 0, 0));
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            this.transform.Translate(new Vector3(0, 0, vitesse));
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            this.transform.Translate(new Vector3(0, 0, -vitesse));
+        }*/
 
 
-
-        this.transform.position = positionInMaze;
     }
     public void SetPosition(Vector3 vec)
     {
         positionInMaze = vec;
+        this.transform.position = positionInMaze;
     }
     public Vector3 GetPosition()
     {
