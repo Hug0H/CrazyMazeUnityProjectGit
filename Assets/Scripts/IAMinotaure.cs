@@ -206,6 +206,7 @@ public class IAMinotaure : MonoBehaviour
             compteur += 1;
         }
         //AffichageMatrice(DIST, "");
+
         /*print("choixPossibles :");
         
         for (int i = 0; i < choixPossibles.Length; i++)

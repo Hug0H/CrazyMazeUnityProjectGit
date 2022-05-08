@@ -5,7 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameHub
+<<<<<<< HEAD
   - Player1
+=======
+>>>>>>> b8a95f5ff8e99edcf7c1185c56272656861ee657
   layers:
   - Default
   - TransparentFX

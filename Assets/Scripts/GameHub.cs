@@ -27,7 +27,11 @@ public class GameHub : MonoBehaviour
     {
 
         this.mazeMatrice = maze.GetMatrice();
+<<<<<<< HEAD
         //maze.AffichageMatrice(mazeMatrice);
+=======
+        maze.AffichageMatrice(mazeMatrice);
+>>>>>>> b8a95f5ff8e99edcf7c1185c56272656861ee657
         spawnCaracters();
 
         Camera1 = Instantiate(prefabCamera1, new Vector3(0, 0, 0), Quaternion.identity);

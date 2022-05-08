@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private GameObject Lives;
 
     float vitesse;
+
     private void Awake()
     {
         instance = this;
@@ -98,7 +99,6 @@ public class Player : MonoBehaviour
         {
             this.transform.Translate(new Vector3(0, 0, -vitesse));
         }*/
-
 
     }
     public void SetPosition(Vector3 vec)
