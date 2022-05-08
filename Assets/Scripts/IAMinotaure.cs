@@ -254,6 +254,7 @@ public class IAMinotaure : MonoBehaviour
         //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[1]);
 
         if (position[1] == FirstPlayerPos.y && FirstPlayerPos.x == position[0])
+<<<<<<< Updated upstream
         {
             print("collision vec le Player1");
             FirstPlayer.GetComponent<Player>().SetLives(FirstPlayer.GetComponent<Player>().GetLives()-1);
@@ -266,6 +267,17 @@ public class IAMinotaure : MonoBehaviour
             SecondPlayer.GetComponent<Player>().SetLives(SecondPlayer.GetComponent<Player>().GetLives() - 1);
             Vector3 respawn = hub.getAleaSpawn();
             SecondPlayer.GetComponent<Player>().SetPosition(respawn);
+=======
+        {
+            print("collision vec le Player1");
+            FirstPlayer.GetComponent<Player>().SetLives(FirstPlayer.GetComponent<Player>().GetLives()-1);
+            
+        }
+        if (position[1] == SecondPlayerPos.y && SecondPlayerPos.x == position[0])
+        {
+            print("collision vec le Player2");
+            SecondPlayer.GetComponent<Player>().SetLives(SecondPlayer.GetComponent<Player>().GetLives() - 1);
+>>>>>>> Stashed changes
         }
 
     }
