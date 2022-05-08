@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameHub
+  - GameManager
+  - Menu
+  - Ground
   layers:
   - Default
   - TransparentFX
