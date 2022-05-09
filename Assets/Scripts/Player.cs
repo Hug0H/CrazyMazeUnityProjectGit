@@ -32,7 +32,6 @@ public class Player : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
         m_RotationSpeed = 120;
         m_TranslationSpeed = 20;
-        vitesse = 0.2f;
     }
 
     // Start is called before the first frame update

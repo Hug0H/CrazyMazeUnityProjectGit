@@ -23,7 +23,7 @@ public class HealthSystemPlayer2 : MonoBehaviour
     void Update()
     {
         //print("Vie j1 : " + FirstPlayer.GetComponent<Player>().GetLives());
-        print("Vie j2 : " + SecondPlayer.GetComponent<Player>().GetLives());
+        //print("Vie j2 : " + SecondPlayer.GetComponent<Player>().GetLives());
         //print("Player Vie" + Player.instance.GetLives());
         switch (SecondPlayer.GetComponent<Player>().GetLives())
         {
