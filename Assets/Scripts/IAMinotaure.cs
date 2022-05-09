@@ -4,47 +4,63 @@ using System.Linq;
 using UnityEngine;
 
 //Cette classe appliquée sur le minotautorre prend en paramettre la position du joueur dans la matrice, ainsi que la matyrice du labyrynthe 
-
+[RequireComponent(typeof(AudioSource))]
 public class IAMinotaure : MonoBehaviour
 {
     float time;
     float TimerInterval = 1;
     float tick;
+
+    float time2;
+    float TimerInterval2 = 10;
+    float tick2;
+
     public MazeGen maze;
     private int[,] DIST;
     private int[,] matrice;
 
-    private int [] position;
+    private int[] position;
     private GameHub hub;
 
-    private GameObject gameHub;
     //private List<Player> players;
-    private Vector2 firstPlayerPos;
+    private GameObject FirstPlayer;
+    private GameObject SecondPlayer;
+    private Vector2 FirstPlayerPos;
+    private Vector2 SecondPlayerPos;
     private int tailleX;
     private int tailleY;
 
     int compteur;
     // Start is called before the first frame update
 
+    public AudioClip criMino;
+    AudioSource cri;
+    float intensiteCri = 0.1f;
+
+    //Musique d'ambiance pour accélere le pitch
+    AudioSource musiqueAmbiance;
     void Awake()
     {
-        time = (int)Time.time;
         tick = TimerInterval;
+        tick2 = TimerInterval2;
+        
     }
     public void Start()
     {
+        cri = GetComponent<AudioSource>();
         GameObject gameHub = GameObject.FindGameObjectWithTag("GameHub");
 
-         hub =gameHub.GetComponent<GameHub>();
-        
-        maze = hub.maze;
+        hub = gameHub.GetComponent<GameHub>();
+        musiqueAmbiance = hub.GetComponent<AudioSource>();
+
         //maze = new MazeGen();
         //maze.Start();
-
+        maze = hub.maze;
         this.matrice = maze.GetMatrice();
 
 
-        maze.AffichageMatrice(this.matrice);
+
+        //maze.AffichageMatrice(this.matrice);
 
         DIST = (int[,])matrice.Clone();
 
@@ -55,7 +71,7 @@ public class IAMinotaure : MonoBehaviour
         position = new int[2];
         position[0] = (int)hub.getPosInMaze(gameObject).x;
         position[1] = (int)hub.getPosInMaze(gameObject).y;
-        
+
     }
 
     //Initialisation de la carte des distances
@@ -72,7 +88,7 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else
                 {
-                    DIST[x, y] = 30;
+                    DIST[x, y] = 998;
                 }
             }
         }
@@ -100,7 +116,7 @@ public class IAMinotaure : MonoBehaviour
                 }
                 else
                 {
-                    DIST[x, y] = 30;
+                    DIST[x, y] = 998;
                 }
             }
         }
@@ -150,7 +166,7 @@ public class IAMinotaure : MonoBehaviour
         return DIST;*/
         InitDistPlayer(xp, yp);
         // Parcours de calcules des distances
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 100; i++)
         {
             UpdateDistPlayer();
         }
@@ -161,18 +177,18 @@ public class IAMinotaure : MonoBehaviour
     {
         string[] choixPossibles = new string[4];
         compteur = 0;
-        print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
+        //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[0]);
         int caseHaut = DIST[position[0] - 1, position[1]];
-        print("caseHaut " + caseHaut);
+        //print("caseHaut " + caseHaut);
         int caseBas = DIST[position[0] + 1, position[1]];
-        print("caseBas " + caseBas);
+        //print("caseBas " + caseBas);
         int caseGauche = DIST[position[0], position[1] - 1];
-        print("caseGauche " + caseGauche);
-        int caseDroite = DIST[position[0] , position[1]+1];
-        print("caseDroite " + caseDroite);
-        int valeurMin = Minimum(new int[4] { caseHaut,caseBas,caseDroite,caseGauche });
+        //print("caseGauche " + caseGauche);
+        int caseDroite = DIST[position[0], position[1] + 1];
+        //print("caseDroite " + caseDroite);
+        int valeurMin = Minimum(new int[4] { caseHaut, caseBas, caseDroite, caseGauche });
         print("ValeurMin : " + valeurMin);
-        if (caseGauche  == valeurMin)
+        if (caseGauche == valeurMin)
         {
             choixPossibles[compteur] = "gauche";
             compteur += 1;
@@ -180,7 +196,7 @@ public class IAMinotaure : MonoBehaviour
         if (caseDroite == valeurMin)
         {
             choixPossibles[compteur] = "droite";
-            compteur += 1; 
+            compteur += 1;
         }
         if (caseBas == valeurMin)
         {
@@ -192,7 +208,8 @@ public class IAMinotaure : MonoBehaviour
             choixPossibles[compteur] = "haut";
             compteur += 1;
         }
-        AffichageMatrice(DIST,"");
+        //AffichageMatrice(DIST, "");
+
         /*print("choixPossibles :");
         
         for (int i = 0; i < choixPossibles.Length; i++)
@@ -206,8 +223,8 @@ public class IAMinotaure : MonoBehaviour
     {
 
         DIST = PreInitDistPlayer();
-        DIST = CalculDistPlayer((int)firstPlayerPos.y, (int)firstPlayerPos.x);
-
+        DIST = CalculDistPlayer((int)FirstPlayerPos.y, (int)FirstPlayerPos.x);
+        DIST = CalculDistPlayer((int)SecondPlayerPos.y, (int)SecondPlayerPos.x);
         //deplacement Minautore
         string[] choixPossibles = MinautorePossibleMove();
         int choix = Random.Range(0, compteur);
@@ -220,33 +237,45 @@ public class IAMinotaure : MonoBehaviour
         }
         else if (result == "bas")
         {
-            
+
             transform.Translate(1, 0, 0);
-            
+
         }
         else if (result == "droite")
         {
-           
+
             transform.Translate(0, 0, 1);
         }
         else if (result == "gauche")
         {
-            
+
             transform.Translate(0, 0, -1);
         }
         position[0] = (int)hub.getPosInMaze(gameObject).x;
         position[1] = (int)hub.getPosInMaze(gameObject).y;
-        print(result);
+        //print(result);
         //AffichageMatrice(DIST);
 
         //print("PositionXMinautore : " + position[1] + "  /  PositionYMinautore : " + position[1]);
 
 
-        if (position[1] == firstPlayerPos.y && firstPlayerPos.x == position[0])
+       /* print("Vie j1 : " + FirstPlayer.GetComponent<Player>().GetLives());
+        print("Vie j2 : " + SecondPlayer.GetComponent<Player>().GetLives());*/
+        if (position[1] == FirstPlayerPos.y && FirstPlayerPos.x == position[0])
         {
-            print("collision");
+            print("collision vec le Player1");
+            FirstPlayer.GetComponent<Player>().SetLives(FirstPlayer.GetComponent<Player>().GetLives()-1);
+            Vector3 respawn = hub.getAleaSpawn();
+            FirstPlayer.GetComponent<Player>().SetPosition(respawn);
         }
-        
+        if (position[1] == SecondPlayerPos.y && SecondPlayerPos.x == position[0])
+        {
+            print("collision vec le Player2");
+            SecondPlayer.GetComponent<Player>().SetLives(SecondPlayer.GetComponent<Player>().GetLives() - 1);
+            Vector3 respawn = hub.getAleaSpawn();
+            SecondPlayer.GetComponent<Player>().SetPosition(respawn);
+        }
+
     }
     IEnumerator waiter(int sec)
     {
@@ -258,8 +287,11 @@ public class IAMinotaure : MonoBehaviour
     void Update()
     {
 
-        firstPlayerPos = hub.getPosInMaze(hub.getPlayer());
+        FirstPlayer = hub.getPlayer1();
+        FirstPlayerPos = hub.getPosInMaze(FirstPlayer);
 
+        SecondPlayer = hub.getPlayer2();
+        SecondPlayerPos = hub.getPosInMaze(SecondPlayer);
         time = (int)Time.time;
         //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
@@ -272,11 +304,60 @@ public class IAMinotaure : MonoBehaviour
 
             IA();
             //AffichageMatrice(DIST,"light");
-            
+           
+
         }
 
+        time2 = (int)Time.time;
+        //Gestion du cri du mino
+        if (time2 == tick2)
+        {
 
-
+            tick2 = time2 + TimerInterval2;
+            //AffichageMatrice(DIST,"light");
+            if (DIST[position[0], position[1]] < 20)//SI le minautore approche on modifie le pitch
+            {
+                musiqueAmbiance.pitch *= 1.1f;
+            }
+            else
+            {
+                musiqueAmbiance.pitch = 1.0f;
+            }
+            if (DIST[position[0], position[1]] > 50)
+            {
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 40)
+            {
+                intensiteCri = 0.3f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 30)
+            {
+                intensiteCri = 0.4f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 20)
+            {
+                intensiteCri = 0.5f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 10)
+            {
+                intensiteCri = 0.7f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] > 5)
+            {
+                intensiteCri = 0.8f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+            else if (DIST[position[0], position[1]] <= 5)
+            {
+                intensiteCri = 1f;
+                cri.PlayOneShot(criMino, intensiteCri);
+            }
+        }
     }
 
 
@@ -319,7 +400,12 @@ public class IAMinotaure : MonoBehaviour
 
                 //else if(i == maze.groudSize.x/2 && j ==maze.groudSize.y/2 )
 
-                else if (i == firstPlayerPos.x && j == firstPlayerPos.y)
+                else if (i == (int)FirstPlayerPos.x && j == (int)FirstPlayerPos.y)
+
+                {
+                    s += " P ";
+                }
+                else if (i == (int)SecondPlayerPos.x && j == (int)SecondPlayerPos.y)
 
                 {
                     s += " P ";

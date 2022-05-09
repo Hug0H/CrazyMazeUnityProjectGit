@@ -86,7 +86,7 @@ public class MazeGen : MonoBehaviour
         {
             for (int j = 0; j < tailleY; j++)
             {
-                if (i == 0 || i == tailleX - 1 || j == 0 || j == tailleY - 1)
+                if (i == 0 || i == tailleX-1 || j == 0 || j == tailleY-1 )
                 {
                     matrice[i, j] = 1;
 
@@ -114,7 +114,7 @@ public class MazeGen : MonoBehaviour
             }
         }
         //print("--------------------------------------------------------------------------------");
-        AffichageMatrice(matriceVisite);
+        //AffichageMatrice(matriceVisite);
 
         //On suit la page wikipedia https://fr.wikipedia.org/wiki/Modélisation_mathématique_d%27un_labyrinthe
         //On choisit arbitrairement une cellule, on stocke la position en cours et on la marque comme visitée (vrai).
@@ -125,6 +125,7 @@ public class MazeGen : MonoBehaviour
         matriceVisite[currentI, currentJ] = 1;
         pile.Push((currentI, currentJ));
         GenLab();
+        GenererMaze();
     }
     private void GenererMaze()
     {
@@ -314,6 +315,6 @@ public class MazeGen : MonoBehaviour
             }
             GenLab();
         }
-        GenererMaze();
+        
     }
 }

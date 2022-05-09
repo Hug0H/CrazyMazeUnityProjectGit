@@ -7,38 +7,69 @@ public class GameHub : MonoBehaviour
 {
     public MazeGen maze;
     private int[,] mazeMatrice;
-   
-    public GameObject prefabJoueur;
-    private GameObject Joueur;
+
+    public GameObject prefabJoueur1;
+    private GameObject Joueur1;
+
+    public GameObject prefabJoueur2;
+    private GameObject Joueur2;
 
     public GameObject prefabMinos;
     private GameObject minos;
-    
+
+    public GameObject prefabCamera1;
+    private GameObject Camera1;
+
+    public GameObject prefabCamera2;
+    private GameObject Camera2;
     // Start is called before the first frame update
     void Start()
     {
-        
+
         this.mazeMatrice = maze.GetMatrice();
-        maze.AffichageMatrice(mazeMatrice);
+        //maze.AffichageMatrice(mazeMatrice);
         spawnCaracters();
-        
+
+        Camera1 = Instantiate(prefabCamera1, new Vector3(0, 0, 0), Quaternion.identity);
+        Camera1.AddComponent<CamFollowSmooth>();
+        Camera1.GetComponent<CamFollowSmooth>().setTarget(Joueur1.transform);
+        Camera1.AddComponent<AudioListener>();
+
+        Camera2 = Instantiate(prefabCamera2, new Vector3(0, 0, 0), Quaternion.identity);
+        Camera2.AddComponent<CamFollowSmooth>();
+        Camera2.GetComponent<CamFollowSmooth>().setTarget(Joueur2.transform);
+        //Camera2.AddComponent<AudioListener>();
     }
-    //Accesseur du player
-    public GameObject getPlayer()
+    //Accesseur du player1
+    public GameObject getPlayer1()
     {
-        return Joueur;
+        return Joueur1;
     }
-   
+
+    //Accesseur du player1
+    public GameObject getPlayer2()
+    {
+        return Joueur2;
+    }
+
     private void spawnCaracters()
     {
-        //Vector3 spawnPlayer = getAleaSpawn();
-        Vector3 spawnPlayer = new Vector3(1,1,0);
+        Vector3 spawnPlayer1 = getAleaSpawn();
+        //Vector3 spawnPlayer1 = new Vector3(1, 1, 0);
+        Vector3 spawnPlayer2 = getAleaSpawn();
         Vector3 spawnMinos = getAleaSpawn();
-        
-        Joueur=Instantiate(prefabJoueur, spawnPlayer , Quaternion.identity);
-        minos =Instantiate(prefabMinos, spawnMinos, Quaternion.identity);
+
+        Joueur1 = Instantiate(prefabJoueur1, spawnPlayer1, Quaternion.identity);
+        Joueur1.GetComponent<Player>().SetPosition(Joueur1.transform.position);
+
+
+        Joueur2 = Instantiate(prefabJoueur2, spawnPlayer2, Quaternion.identity);
+        Joueur2.GetComponent<Player>().SetPosition(Joueur2.transform.position);
+
+
+        minos = Instantiate(prefabMinos, spawnMinos, Quaternion.identity);
     }
-    
+
     public Vector3 getAleaSpawn()
     {
         int i = Random.Range(-(maze.GetTailleVisiteX() - 1) / 2, (maze.GetTailleVisiteX() - 1) / 2);
@@ -50,15 +81,16 @@ public class GameHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+
+        //print(Joueur1.GetComponent<Player>().GetPosition());
     }
 
-    
+
     public Vector2 getPosInMaze(GameObject o)
     {
         Vector3 posO = o.GetComponent<Transform>().position;
         //print("" + posO.x + posO.y + posO.z);
-        Vector2 positionInMaze = new Vector2( Mathf.CeilToInt(posO.x) + maze.groudSize.x/2-1, Mathf.CeilToInt(posO.z) + maze.groudSize.y/2 -1);
+        Vector2 positionInMaze = new Vector2(Mathf.CeilToInt(posO.x) + maze.groudSize.x / 2 - 1, Mathf.CeilToInt(posO.z) + maze.groudSize.y / 2 - 1);
         return positionInMaze;
     }
 }
