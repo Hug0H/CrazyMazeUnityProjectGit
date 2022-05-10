@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        
         GameState = State.Menu;
         Menu = GameObject.FindGameObjectWithTag("Menu");
         Menu.SetActive(false);
@@ -34,8 +36,6 @@ public class GameManager : MonoBehaviour
     public void StartNewGame()
     {
         camCinematique.SetActive(false);
-        cam1.SetActive(true);
-        cam2.SetActive(true);
         MapCinematique.SetActive(false);
                    
         if (Ground != null)
@@ -50,7 +50,10 @@ public class GameManager : MonoBehaviour
             Destroy(Gh);
         }
     GameHub=Instantiate(prefabGameHub, new Vector3(0, 0, 0), Quaternion.identity);
-    GameHub.GetComponent<GameHub>().maze = Ground.GetComponent<MazeGen>(); 
+    GameHub.GetComponent<GameHub>().maze = Ground.GetComponent<MazeGen>();
+
+        /*GameHub.GetComponent<GameHub>().Camera1 = cam1;
+        GameHub.GetComponent<GameHub>().Camera2 = cam2;*/
     }
 
     // Update is called once per frame

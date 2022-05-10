@@ -51,8 +51,8 @@ public class Player : MonoBehaviour
         {
             //Dynamique
 
-            float vInput = Input.GetAxis("P1_Vertical"); // entre -1 et 1
-            float hInput = Input.GetAxisRaw("P1_Horizontal"); // entre -1 et 1
+            float vInput = Input.GetAxis("P2_Vertical"); // entre -1 et 1
+            float hInput = Input.GetAxisRaw("P2_Horizontal"); // entre -1 et 1
 
             // MODE VELOCITY
             Vector3 targetVelocity = vInput * m_TranslationSpeed * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
@@ -72,8 +72,8 @@ public class Player : MonoBehaviour
         {
             //Dynamique
 
-            float vInput = Input.GetAxis("P2_Vertical"); // entre -1 et 1
-            float hInput = Input.GetAxisRaw("P2_Horizontal"); // entre -1 et 1
+            float vInput = Input.GetAxis("P1_Vertical"); // entre -1 et 1
+            float hInput = Input.GetAxisRaw("P1_Horizontal"); // entre -1 et 1
 
             // MODE VELOCITY
             Vector3 targetVelocity = vInput * m_TranslationSpeed * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;

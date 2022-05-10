@@ -10,6 +10,8 @@ TagManager:
   - GameManager
   - Menu
   - Ground
+  - camplayer1
+  - camplayer2
   layers:
   - Default
   - TransparentFX

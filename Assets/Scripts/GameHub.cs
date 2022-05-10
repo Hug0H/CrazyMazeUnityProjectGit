@@ -18,10 +18,10 @@ public class GameHub : MonoBehaviour
     private GameObject minos;
 
     public GameObject prefabCamera1;
-    private GameObject Camera1;
+    public GameObject Camera1;
 
     public GameObject prefabCamera2;
-    private GameObject Camera2;
+    public GameObject Camera2;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,12 +30,14 @@ public class GameHub : MonoBehaviour
         //maze.AffichageMatrice(mazeMatrice);
         spawnCaracters();
 
-        Camera1 = Instantiate(prefabCamera1, new Vector3(0, 0, 0), Quaternion.identity);
+        Camera1 = GameObject.FindGameObjectWithTag("camplayer1");
+        Camera1 = Instantiate(Camera1, new Vector3(0, 0, 0), Quaternion.identity);
         Camera1.AddComponent<CamFollowSmooth>();
         Camera1.GetComponent<CamFollowSmooth>().setTarget(Joueur1.transform);
         Camera1.AddComponent<AudioListener>();
 
-        Camera2 = Instantiate(prefabCamera2, new Vector3(0, 0, 0), Quaternion.identity);
+        Camera2 = GameObject.FindGameObjectWithTag("camplayer2");
+        Camera2 = Instantiate(Camera2, new Vector3(0, 0, 0), Quaternion.identity);
         Camera2.AddComponent<CamFollowSmooth>();
         Camera2.GetComponent<CamFollowSmooth>().setTarget(Joueur2.transform);
         //Camera2.AddComponent<AudioListener>();
