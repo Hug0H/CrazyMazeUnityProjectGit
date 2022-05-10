@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 //Cette classe appliquée sur le minotautorre prend en paramettre la position du joueur dans la matrice, ainsi que la matyrice du labyrynthe 
 [RequireComponent(typeof(AudioSource))]
 public class IAMinotaure : MonoBehaviour
@@ -63,7 +64,7 @@ public class IAMinotaure : MonoBehaviour
         //maze.AffichageMatrice(this.matrice);
 
         DIST = (int[,])matrice.Clone();
-
+        
         tailleX = DIST.GetLength(1);//Renvoie le nombre de colonne
         tailleY = DIST.GetLength(0);//Renvoie le nombre de ligne
 
@@ -71,13 +72,13 @@ public class IAMinotaure : MonoBehaviour
         position = new int[2];
         position[0] = (int)hub.getPosInMaze(gameObject).x;
         position[1] = (int)hub.getPosInMaze(gameObject).y;
-
+        //AffichageMatrice(DIST, "");
     }
 
     //Initialisation de la carte des distances
     int[,] PreInitDistPlayer()
     {
-        //AffichageMatrice(matrice);
+        //AffichageMatrice(matrice,"");
         for (int x = 0; x < tailleX; x++)
         {
             for (int y = 0; y < tailleY; y++)
@@ -286,29 +287,30 @@ public class IAMinotaure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         FirstPlayer = hub.getPlayer1();
         FirstPlayerPos = hub.getPosInMaze(FirstPlayer);
 
         SecondPlayer = hub.getPlayer2();
         SecondPlayerPos = hub.getPosInMaze(SecondPlayer);
-        time = (int)Time.time;
+        time = (int)Time.time - 15 ;
+        //print(time);
         //print("XPLAYER :" + players.position.x + " / YPLAYER : " + players.position.y);
         //AffichageMatrice(matrice);
-
+        /*print(tick);
+        print(tick2);*/
 
         if (time == tick)
         {
 
             tick = time + TimerInterval;
-
+            print("jesuissamy");
             IA();
-            //AffichageMatrice(DIST,"light");
+            //AffichageMatrice(DIST,"");
            
 
         }
 
-        time2 = (int)Time.time;
+        time2 = (int)Time.time -15;
         //Gestion du cri du mino
         if (time2 == tick2)
         {
@@ -323,40 +325,31 @@ public class IAMinotaure : MonoBehaviour
             {
                 musiqueAmbiance.pitch = 1.0f;
             }
-            if (DIST[position[0], position[1]] > 50)
+            if (DIST[position[0], position[1]] > 40)
             {
-                cri.PlayOneShot(criMino, intensiteCri);
-            }
-            else if (DIST[position[0], position[1]] > 40)
-            {
-                intensiteCri = 0.3f;
-                cri.PlayOneShot(criMino, intensiteCri);
+                intensiteCri = 0.13f;
             }
             else if (DIST[position[0], position[1]] > 30)
             {
-                intensiteCri = 0.4f;
-                cri.PlayOneShot(criMino, intensiteCri);
+                intensiteCri = 0.14f;
             }
             else if (DIST[position[0], position[1]] > 20)
             {
-                intensiteCri = 0.5f;
-                cri.PlayOneShot(criMino, intensiteCri);
+                intensiteCri = 0.15f;
             }
             else if (DIST[position[0], position[1]] > 10)
             {
-                intensiteCri = 0.7f;
-                cri.PlayOneShot(criMino, intensiteCri);
+                intensiteCri = 0.17f;
             }
             else if (DIST[position[0], position[1]] > 5)
             {
-                intensiteCri = 0.8f;
-                cri.PlayOneShot(criMino, intensiteCri);
+                intensiteCri = 0.18f;
             }
             else if (DIST[position[0], position[1]] <= 5)
             {
-                intensiteCri = 1f;
-                cri.PlayOneShot(criMino, intensiteCri);
+                intensiteCri = 0.3f;
             }
+            cri.PlayOneShot(criMino, intensiteCri);
         }
     }
 

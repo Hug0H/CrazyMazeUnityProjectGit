@@ -30,14 +30,14 @@ public class GameHub : MonoBehaviour
         //maze.AffichageMatrice(mazeMatrice);
         spawnCaracters();
 
-        Camera1 = GameObject.FindGameObjectWithTag("camplayer1");
-        Camera1 = Instantiate(Camera1, new Vector3(0, 0, 0), Quaternion.identity);
+        prefabCamera1 = GameObject.Find("cameraPlayer1");
+        Camera1 = Instantiate(prefabCamera1, new Vector3(0, 0, 0), Quaternion.identity);
         Camera1.AddComponent<CamFollowSmooth>();
         Camera1.GetComponent<CamFollowSmooth>().setTarget(Joueur1.transform);
         Camera1.AddComponent<AudioListener>();
 
-        Camera2 = GameObject.FindGameObjectWithTag("camplayer2");
-        Camera2 = Instantiate(Camera2, new Vector3(0, 0, 0), Quaternion.identity);
+        prefabCamera2 = GameObject.FindGameObjectWithTag("camplayer2");
+        Camera2 = Instantiate(prefabCamera2, new Vector3(0, 0, 0), Quaternion.identity);
         Camera2.AddComponent<CamFollowSmooth>();
         Camera2.GetComponent<CamFollowSmooth>().setTarget(Joueur2.transform);
         //Camera2.AddComponent<AudioListener>();

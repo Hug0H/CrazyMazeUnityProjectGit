@@ -51,9 +51,6 @@ public class GameManager : MonoBehaviour
         }
     GameHub=Instantiate(prefabGameHub, new Vector3(0, 0, 0), Quaternion.identity);
     GameHub.GetComponent<GameHub>().maze = Ground.GetComponent<MazeGen>();
-
-        /*GameHub.GetComponent<GameHub>().Camera1 = cam1;
-        GameHub.GetComponent<GameHub>().Camera2 = cam2;*/
     }
 
     // Update is called once per frame
